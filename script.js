@@ -1,3 +1,4 @@
+// HOPE Panamá V2 — carrusel de aseguradoras corregido
 const menuButton = document.querySelector("#menuButton");
 const mainNav = document.querySelector("#mainNav");
 const servicesButton = document.querySelector("#servicesButton");
