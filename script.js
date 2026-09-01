@@ -91,10 +91,16 @@ function setupNavigation() {
 
 function doctorCard(doctor, index) {
   return `
-    <a class="doctor-card" href="doctor.html?id=${doctor.id}" data-category="${doctor.specialty}" data-reveal>
-      <div class="doctor-photo"><img src="${doctor.image}" alt="${doctor.name}" style="object-position:${doctor.position}"><span>${String(index + 1).padStart(2, "0")}</span><b>Ver perfil ↗</b></div>
-      <div class="doctor-info"><small>Perfil demostrativo</small><h3>${doctor.name}</h3><p>${doctor.specialty}</p></div>
-    </a>`;
+    <article class="doctor-card" data-category="${doctor.specialty}" data-reveal>
+      <a class="doctor-profile-link" href="doctor.html?id=${doctor.id}">
+        <div class="doctor-photo"><img src="${doctor.image}" alt="${doctor.name}" style="object-position:${doctor.position}"><span>${String(index + 1).padStart(2, "0")}</span><b>Ver perfil ↗</b></div>
+        <div class="doctor-info"><small>Perfil del especialista</small><h3>${doctor.name}</h3><p>${doctor.specialty}</p></div>
+      </a>
+      <div class="doctor-social-row">
+        <a href="doctor.html?id=${doctor.id}">Conocer perfil</a>
+        <a class="instagram-link" href="${doctor.instagram}" target="_blank" rel="noopener" aria-label="Instagram de ${doctor.name}">Instagram <span>↗</span></a>
+      </div>
+    </article>`;
 }
 
 function serviceCard(service) {
@@ -146,7 +152,7 @@ function renderDoctorDetail() {
     <section class="profile-hero">
       <div class="profile-orbit"></div>
       <div class="shell profile-grid">
-        <div class="profile-copy" data-reveal><a class="breadcrumb" href="equipo.html">← Equipo médico</a><span class="demo-badge">Perfil demostrativo</span><p class="kicker light"><span></span> ${doctor.specialty}</p><h1>${doctor.name}</h1><p>${doctor.intro}</p><div class="profile-actions"><a class="button button-gold" href="contacto.html">Solicitar orientación <span>↗</span></a><a class="button button-dark-ghost" href="tel:+5073863086">Llamar al centro</a></div></div>
+        <div class="profile-copy" data-reveal><a class="breadcrumb" href="equipo.html">← Equipo médico</a><span class="demo-badge">Perfil demostrativo</span><p class="kicker light"><span></span> ${doctor.specialty}</p><h1>${doctor.name}</h1><p>${doctor.intro}</p><div class="profile-actions"><a class="button button-gold" href="contacto.html">Solicitar orientación <span>↗</span></a><a class="button button-dark-ghost" href="tel:+5073863086">Llamar al centro</a><a class="button button-instagram" href="${doctor.instagram}" target="_blank" rel="noopener">Instagram <span>↗</span></a></div></div>
         <div class="profile-photo-wrap" data-reveal><div class="profile-photo"><img src="${doctor.image}" alt="${doctor.name}" style="object-position:${doctor.position}"></div><div class="profile-fact"><small>Experiencia</small><strong>${doctor.experience}</strong><span>Información demostrativa</span></div></div>
       </div>
     </section>

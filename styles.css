@@ -168,6 +168,7 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
 /* Doctors */
 .doctor-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
 .doctor-card { min-width: 0; }
+.doctor-profile-link { display: block; }
 .doctor-photo { position: relative; overflow: hidden; aspect-ratio: .82; border-radius: 24px; background: var(--mist); }
 .doctor-photo::after { content: ""; position: absolute; inset: auto 0 0; height: 48%; background: linear-gradient(transparent,rgba(6,29,39,.7)); }
 .doctor-photo img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.86); transition: transform .55s ease, filter .4s ease; }
@@ -179,6 +180,12 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
 .doctor-info small { color: #a68654; font-size: .63rem; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; }
 .doctor-info h3 { margin: 6px 0 4px; font-size: 1.55rem; }
 .doctor-info p { margin: 0; color: var(--muted); font-size: .84rem; }
+.doctor-social-row { margin-top: 17px; padding: 14px 4px 0; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: .74rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; }
+.doctor-social-row > a:first-child { color: var(--muted); }
+.doctor-social-row a:hover { color: var(--teal); }
+.instagram-link { display: inline-flex; align-items: center; gap: 7px; color: #9c517c; }
+.instagram-link span { transition: transform .2s ease; }
+.instagram-link:hover span { transform: translate(3px,-3px); }
 
 /* Insurance + CTA + footer */
 .insurance-layout { display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(60px,8vw,110px); align-items: center; }
@@ -308,6 +315,8 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
 .profile-copy h1 { margin-bottom: 22px; font-size: clamp(4rem,7vw,7.3rem); line-height: .9; }
 .profile-copy > p:not(.kicker) { max-width: 640px; color: #b1c3c7; font-size: 1.03rem; line-height: 1.8; }
 .profile-actions { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
+.button-instagram { color: var(--white); border-color: rgba(255,255,255,.26); background: linear-gradient(100deg,rgba(189,57,131,.24),rgba(238,127,48,.16)); }
+.button-instagram:hover { border-color: transparent; background: linear-gradient(100deg,#a7358b,#df7142); }
 .profile-photo-wrap { position: relative; width: min(100%,520px); margin-left: auto; }
 .profile-photo { overflow: hidden; border-radius: 240px 240px 0 0; background: var(--mist); }
 .profile-photo img { width: 100%; aspect-ratio: .82; object-fit: cover; }
