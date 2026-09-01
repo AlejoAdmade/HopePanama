@@ -117,8 +117,6 @@ renderGallery("team");
 renderGallery("hope");
 
 const insurers = [
-  "images/insurer-1.png",
-  "images/insurer-2.png",
   "images/insurer-3.png",
   "images/insurer-4.png",
   "images/insurer-5.png",
