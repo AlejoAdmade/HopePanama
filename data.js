@@ -25,7 +25,7 @@ window.HOPE_DATA = {
       specialty: "Oncólogo",
       image: "images/doctor-2.png",
       position: "50% 24%",
-      instagram: "https://www.instagram.com/",
+      instagram: "https://www.instagram.com/drerikarauz/",
       intro: "Atención oncológica personalizada, con evaluación multidisciplinaria y seguimiento durante cada etapa del tratamiento.",
       bio: "El Dr. Erik Araúz trabaja en la planificación de tratamientos oncológicos personalizados, coordinando estudios, terapias y controles para que cada paciente tenga una ruta de atención comprensible y organizada.",
       areas: ["Oncología médica", "Terapias sistémicas", "Segundas opiniones", "Seguimiento postratamiento"],
