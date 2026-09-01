@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Centro de Hematología y Oncología Especializada en Pacífica Salud, Panamá.">
+  <title>HOPE Panamá | Hematología y Oncología Especializada</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="contact-strip">
+    <div class="shell strip-inner">
+      <a href="#contacto">⌖ Pacífica Salud, Piso 8 · Punta Pacífica</a>
+      <div>
+        <a href="mailto:atclientes@hopepanama.com">✉ atclientes@hopepanama.com</a>
+        <a href="tel:+5073863086">☎ 386-3086 / 386-3588 / 386-3488</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="shell nav-shell">
+      <a class="brand" href="#inicio" aria-label="HOPE Panamá">
+        <img src="images/logo.png" alt="HOPE - Hemato-Oncología de Panamá Especializada">
+      </a>
+
+      <button class="menu-button" id="menuButton" aria-expanded="false" aria-label="Abrir menú">☰</button>
+
+      <nav class="main-nav" id="mainNav" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#nosotros">Quienes somos</a>
+        <a href="#equipo">Equipo médico</a>
+
+        <div class="services-menu">
+          <button id="servicesButton" aria-expanded="false">Servicios <span>⌄</span></button>
+          <div class="service-dropdown" id="serviceDropdown">
+            <a href="#servicios">Consulta Externa</a>
+            <a href="#servicios">Aplicación de Quimioterapia Ambulatoria</a>
+            <a href="#servicios">Quimioterapia Intratecal</a>
+            <a href="#servicios">Manejo y Cuidado de Catéteres Venosos Centrales</a>
+            <a href="#servicios">Factores de Crecimiento Hematopoyético</a>
+            <a href="#servicios">Aspirado de Médula Ósea</a>
+            <a href="#servicios">Biopsia de Hueso</a>
+            <a href="#servicios">PsicoOncología</a>
+          </div>
+        </div>
+
+        <a href="#aseguradoras">Aseguradoras</a>
+        <a class="nav-cta" href="#contacto">Contacto <span>↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-glow"></div>
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow"><span></span> Hematología · Oncología · Panamá</div>
+          <h1>Atención especializada, con ciencia y humanidad.</h1>
+          <p>Diagnóstico, tratamiento y acompañamiento integral en un entorno diseñado para cuidar cada parte de tu proceso.</p>
+
+          <div class="hero-actions">
+            <a class="primary-button" href="#nosotros">Conoce HOPE <span>↗</span></a>
+            <a class="text-button" href="tel:+5073863086">☎ Llamar al centro</a>
+          </div>
+
+          <div class="hero-note">
+            <span>HOPE</span>
+            <p>Centro de Hematología Oncología de Panamá Especializada</p>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="image-frame" id="heroFrame">
+            <img class="hero-image active" src="images/hero-1.png" alt="HOPE Panamá 1">
+            <img class="hero-image" src="images/hero-2.jpg" alt="HOPE Panamá 2">
+            <img class="hero-image" src="images/hero-3.jpg" alt="HOPE Panamá 3">
+            <img class="hero-image" src="images/hero-4.jpg" alt="HOPE Panamá 4">
+            <div class="image-counter"><strong id="heroCounter">01</strong><span>/ 04</span></div>
+          </div>
+
+          <div class="hero-controls">
+            <button id="heroPrev" aria-label="Imagen anterior">‹</button>
+            <div class="hero-dots" id="heroDots">
+              <button class="active" aria-label="Ver imagen 1"></button>
+              <button aria-label="Ver imagen 2"></button>
+              <button aria-label="Ver imagen 3"></button>
+              <button aria-label="Ver imagen 4"></button>
+            </div>
+            <button id="heroNext" aria-label="Imagen siguiente">›</button>
+          </div>
+
+          <div class="location-card">
+            <span class="location-icon">⌖</span>
+            <div><small>Estamos en</small><strong>Pacífica Salud · Piso 8</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="nosotros">
+      <div class="shell about-grid">
+        <div class="about-visual">
+          <div class="about-image"><img src="images/about.png" alt="Instalaciones de HOPE Panamá"></div>
+          <div class="about-mark"><span>HOPE</span><small>Panamá</small></div>
+        </div>
+
+        <div class="about-copy">
+          <div class="section-heading">
+            <span>Quiénes somos</span>
+            <h2>HOPE - Centro de Hematología Oncología de Panamá Especializada</h2>
+          </div>
+          <div class="about-text">
+            <p>Las enfermedades en la sangre son de las más frecuentes en nuestra población. En el Centro de Hemato Oncología Especializado en el Hospital Pacífica Salud, hacemos diagnóstico y tratamiento de estas enfermedades.</p>
+            <p>Somos un equipo médico especializado en el tratamiento de todo tipo de cáncer. Hay una alta probabilidad de curar esta enfermedad si la detectamos a tiempo.</p>
+            <p>Nuestro equipo está centrado en el manejo multidisciplinario de los pacientes. Nuestras instalaciones cuentan con los recursos necesarios para ofrecer terapias inmunológicas, hormonales y moléculas pequeñas, orientadas a prolongar su calidad de vida.</p>
+          </div>
+          <a class="inline-link" href="#equipo">Conocer al equipo <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="servicios">
+      <div class="shell">
+        <div class="section-heading services-heading">
+          <span>Todo en un mismo lugar</span>
+          <h2>Cuidado especializado alrededor de cada paciente.</h2>
+        </div>
+
+        <div class="feature-grid">
+          <a class="feature-card" href="#equipo">
+            <div class="feature-top"><img src="images/service-1.png" alt=""><span>01</span></div>
+            <div><h3>Equipo Médico</h3><p>Equipo Médico Especializado en Hematología y Oncología.</p></div><b>↗</b>
+          </a>
+          <a class="feature-card" href="#contacto">
+            <div class="feature-top"><img src="images/service-2.png" alt=""><span>02</span></div>
+            <div><h3>Ubícanos</h3><p>Estamos ubicados en Pacífica Salud, Piso 8.</p></div><b>↗</b>
+          </a>
+          <a class="feature-card" href="#servicios">
+            <div class="feature-top"><img src="images/service-3.png" alt=""><span>03</span></div>
+            <div><h3>Servicios</h3><p>En Hemato Oncología Especializada de Panamá, te brindamos todo el soporte para tu tratamiento.</p></div><b>↗</b>
+          </a>
+          <a class="feature-card" href="#equipo">
+            <div class="feature-top"><img src="images/service-4.png" alt=""><span>04</span></div>
+            <div><h3>Videos</h3><p>Conoce de nuestros especialistas temas de interés.</p></div><b>↗</b>
+          </a>
+          <a class="feature-card" href="https://www.hopepanama.com">
+            <div class="feature-top"><img src="images/service-5.png" alt=""><span>05</span></div>
+            <div><h3>Página Web</h3><p>www.hopepanama.com</p></div><b>↗</b>
+          </a>
+          <a class="feature-card" href="https://www.instagram.com/hope_puntapacifica/">
+            <div class="feature-top"><img src="images/service-6.png" alt=""><span>06</span></div>
+            <div><h3>Redes Sociales</h3><p>Te mantenemos informado y actualizado. Síguenos en @hope_puntapacifica</p></div><b>↗</b>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="shell galleries" id="equipo">
+      <section class="gallery-section">
+        <div class="section-heading row-heading">
+          <div><span>Especialistas</span><h2>Equipo Médico</h2></div>
+          <div class="gallery-actions">
+            <button data-gallery="team" data-direction="-1" aria-label="Anterior">‹</button>
+            <button data-gallery="team" data-direction="1" aria-label="Siguiente">›</button>
+          </div>
+        </div>
+        <div class="doctor-grid" id="teamGallery"></div>
+        <div class="mobile-gallery-actions">
+          <button data-gallery="team" data-direction="-1" aria-label="Anterior">‹</button>
+          <span id="teamCount">1 / 6</span>
+          <button data-gallery="team" data-direction="1" aria-label="Siguiente">›</button>
+        </div>
+      </section>
+
+      <section class="gallery-section">
+        <div class="section-heading row-heading">
+          <div><span>Conoce el centro</span><h2>Hope Panamá</h2></div>
+          <div class="gallery-actions">
+            <button data-gallery="hope" data-direction="-1" aria-label="Anterior">‹</button>
+            <button data-gallery="hope" data-direction="1" aria-label="Siguiente">›</button>
+          </div>
+        </div>
+        <div class="doctor-grid" id="hopeGallery"></div>
+        <div class="mobile-gallery-actions">
+          <button data-gallery="hope" data-direction="-1" aria-label="Anterior">‹</button>
+          <span id="hopeCount">4 / 6</span>
+          <button data-gallery="hope" data-direction="1" aria-label="Siguiente">›</button>
+        </div>
+      </section>
+    </div>
+
+    <section class="insurance" id="aseguradoras">
+      <div class="shell insurance-layout">
+        <div class="section-heading">
+          <span>Respaldo y cobertura</span>
+          <h2>Aseguradoras con las que trabajamos.</h2>
+          <p>Coordinamos tu atención con una red de aseguradoras para facilitar cada paso del proceso.</p>
+          <div class="insurance-actions">
+            <button id="insurerPrev" aria-label="Aseguradoras anteriores">‹</button>
+            <button id="insurerNext" aria-label="Más aseguradoras">›</button>
+          </div>
+        </div>
+        <div class="insurance-grid" id="insuranceGrid"></div>
+      </div>
+    </section>
+
+    <section class="contact-cta">
+      <div class="shell cta-inner">
+        <div><span>Estamos para orientarte</span><h2>Tu atención comienza con una conversación.</h2></div>
+        <a href="tel:+5073863086">386-3086 <span>↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contacto">
+    <div class="shell footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="HOPE Panamá">
+        <p>HOPE - Centro de Hematología Oncología de Panamá Especializada</p>
+      </div>
+      <div><small>Ubicación</small><p>San Francisco, Boulevard Pacífica Salud Vía Punta Darién, Consultorios Pacífica Salud. Piso 8.</p></div>
+      <div><small>Horario</small><p class="open-status">Abierto · Cierra a las 5:30 pm</p></div>
+      <div><small>Contacto</small><a href="tel:+5073863086">386-3086 / 386-3588 / 386-3488</a><a href="mailto:atclientes@hopepanama.com">atclientes@hopepanama.com</a></div>
+    </div>
+    <div class="shell footer-bottom"><span>© 2026 HOPE Panamá. Todos los Derechos Reservados.</span><a href="https://www.instagram.com/hope_puntapacifica/">@hope_puntapacifica ↗</a></div>
+  </footer>
+
+  <a class="whatsapp" href="https://wa.me/5073863086" aria-label="Contactar por WhatsApp">◉</a>
+</body>
+</html>
