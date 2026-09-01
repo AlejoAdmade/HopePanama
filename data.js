@@ -6,7 +6,7 @@ window.HOPE_DATA = {
   doctors: [
     {
       id: "gabriel-chen",
-      name: "Dr. Gabriel Chen",
+      name: "Dr.1",
       specialty: "Hematología y Medicina Interna",
       image: "images/doctor-1.png",
       position: "50% 25%",
@@ -20,7 +20,7 @@ window.HOPE_DATA = {
     },
     {
       id: "andres-mendoza",
-      name: "Dr. Andrés Mendoza",
+      name: "Dr. Erik Araúz",
       specialty: "Oncología Médica",
       image: "images/doctor-2.png",
       position: "50% 24%",
@@ -34,7 +34,7 @@ window.HOPE_DATA = {
     },
     {
       id: "mariana-lopez",
-      name: "Dra. Mariana López",
+      name: "Dra. 3",
       specialty: "Hematología Clínica",
       image: "images/doctor-3.png",
       position: "50% 24%",
@@ -48,7 +48,7 @@ window.HOPE_DATA = {
     },
     {
       id: "sofia-herrera",
-      name: "Dra. Sofía Herrera",
+      name: "Dra. 4",
       specialty: "Oncología y Cuidado Integral",
       image: "images/doctor-4.png",
       position: "50% 20%",
@@ -62,7 +62,7 @@ window.HOPE_DATA = {
     },
     {
       id: "daniel-castillo",
-      name: "Dr. Daniel Castillo",
+      name: "Dr. 5",
       specialty: "Hemato-Oncología",
       image: "images/doctor-5.png",
       position: "50% 22%",
@@ -76,7 +76,7 @@ window.HOPE_DATA = {
     },
     {
       id: "valeria-torres",
-      name: "Dra. Valeria Torres",
+      name: "Dra. 6",
       specialty: "Psicooncología",
       image: "images/doctor-6.png",
       position: "50% 20%",
