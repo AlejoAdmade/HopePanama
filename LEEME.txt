@@ -1,0 +1,28 @@
+HOPE PANAMÁ — SITIO COMPLETO V3
+================================
+
+CÓMO ABRIRLO
+1. Extrae el archivo ZIP completo.
+2. Abre index.html en Google Chrome, Edge, Firefox o Safari.
+3. Mantén todos los archivos y la carpeta images en la misma ubicación.
+
+ARCHIVOS PRINCIPALES
+- index.html: página principal.
+- nosotros.html: información del centro.
+- equipo.html: directorio de especialistas.
+- doctor.html: perfil individual; cambia según el enlace seleccionado.
+- servicios.html: catálogo de servicios.
+- servicio.html: detalle individual; cambia según el enlace seleccionado.
+- contacto.html: ubicación, teléfonos y formulario de correo.
+- styles.css: diseño completo y comportamiento responsive.
+- script.js: navegación e interacciones.
+- data.js: textos editables de doctores, servicios y aseguradoras.
+- images: imágenes utilizadas por todo el sitio.
+
+IMPORTANTE
+Los nombres, biografías, credenciales, años de experiencia y parte de la
+información clínica se incluyeron como contenido demostrativo para completar
+el rediseño. Deben reemplazarse por información verificada antes de publicar.
+
+Para cambiar esos textos, edita data.js. El diseño se actualizará en todas las
+páginas automáticamente.
