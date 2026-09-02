@@ -81,6 +81,10 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
 .main-nav > a:hover::after, .main-nav > a.active::after, .nav-services > button:hover::after, .nav-services > button.active::after { right: 0; }
 .nav-contact { min-height: 46px; padding: 0 20px; border-radius: 999px; display: inline-flex; align-items: center; gap: 10px; color: var(--white); background: var(--navy); }
 .nav-contact:hover { background: var(--teal); }
+.language-switch { height: 34px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; display: inline-flex; align-items: center; gap: 2px; background: var(--white); }
+.language-switch button { width: 31px; height: 26px; padding: 0; border: 0; border-radius: 999px; color: var(--muted); background: transparent; font: inherit; font-size: .66rem; font-weight: 800; letter-spacing: .04em; cursor: pointer; transition: color .2s ease, background .2s ease; }
+.language-switch button[aria-pressed="true"] { color: var(--navy); background: var(--gold-2); }
+.language-switch button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
 .nav-services { position: relative; }
 .nav-services > button { display: flex; align-items: center; gap: 6px; }
 .mega-menu { position: absolute; top: calc(100% + 18px); left: 50%; width: min(720px, 80vw); padding: 18px; border: 1px solid var(--line); border-radius: 24px; display: grid; grid-template-columns: .72fr 1.28fr; gap: 18px; color: var(--ink); background: rgba(255,255,255,.98); box-shadow: var(--shadow); opacity: 0; visibility: hidden; transform: translate(-50%,10px); transition: opacity .2s ease, transform .2s ease, visibility .2s; text-transform: none; letter-spacing: 0; }
@@ -392,6 +396,7 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
   .main-nav > a:not(.nav-contact), .nav-services > button { width: 100%; padding: 15px 6px; text-align: left; }
   .nav-services > button { justify-content: space-between; }
   .main-nav > a::after, .nav-services > button::after { display: none; }
+  .language-switch { margin: 12px 6px 8px; align-self: flex-start; }
   .nav-contact { margin-top: 8px; justify-content: center; }
   .mega-menu { position: static; width: 100%; margin: 4px 0 12px; grid-template-columns: 1fr; opacity: 1; visibility: visible; transform: none; display: none; box-shadow: none; }
   .mega-menu.open { display: grid; transform: none; }
