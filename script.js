@@ -53,7 +53,7 @@ function injectLayout() {
         </div>
         <div class="shell footer-bottom"><span>© 2026 HOPE Panamá. Todos los derechos reservados.</span><span>Atención especializada con ciencia y humanidad.</span></div>
       </footer>
-      <a class="whatsapp-button" href="https://wa.me/5073863086" target="_blank" rel="noopener" aria-label="Contactar a HOPE Panamá por WhatsApp"><span>WA</span><b>Escríbenos</b></a>`;
+      <a class="whatsapp-button" href="https://wa.me/5073863086" target="_blank" rel="noopener" aria-label="Contactar a HOPE Panamá por WhatsApp"><span class="whatsapp-icon"><img src="images/whatsapp.png" alt="" aria-hidden="true"></span><b>Escríbenos</b></a>`;
   }
 }
 
