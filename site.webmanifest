@@ -1,0 +1,22 @@
+{
+  "name": "HOPE - Hemato-Oncología de Panamá Especializada",
+  "short_name": "HOPE Panamá",
+  "description": "Centro especializado en hematología, oncología y psicooncología en Panamá.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "images/favicon-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "images/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#061d27",
+  "background_color": "#061d27",
+  "display": "standalone"
+}
