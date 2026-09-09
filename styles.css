@@ -305,9 +305,12 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
 .form-status { margin: 12px 0 0; color: var(--teal); font-size: .8rem; text-align: center; }
 .form-disclaimer { display: block; margin-top: 8px; color: var(--muted); text-align: center; }
 .location-band { padding: 80px 0; background: var(--paper); }
-.location-band .shell { display: flex; align-items: center; justify-content: space-between; gap: 55px; }
-.location-band h2 { max-width: 780px; font-size: clamp(2.2rem,4vw,4rem); }
+.location-band .shell { display: grid; grid-template-columns: minmax(0,.82fr) minmax(460px,1.18fr); align-items: center; gap: clamp(45px,6vw,90px); }
+.location-band h2 { max-width: 680px; font-size: clamp(2.2rem,3.6vw,4rem); }
 .location-band p { color: var(--muted); }
+.location-copy .button { width: fit-content; margin-top: 26px; }
+.location-map { min-height: 440px; border: 1px solid var(--line); border-radius: 30px 120px 30px 30px; overflow: hidden; background: var(--mist); box-shadow: var(--shadow); }
+.location-map iframe { width: 100%; height: 440px; border: 0; display: block; }
 
 /* Doctor profile */
 .profile-hero { position: relative; overflow: hidden; color: var(--white); background: var(--navy); }
@@ -440,6 +443,8 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
   .profile-photo-wrap { width: min(100%,560px); margin: 0 auto; }
   .service-detail-grid { grid-template-columns: 1fr; gap: 50px; }
   .service-symbol { margin: 0 auto; }
+  .location-band .shell { grid-template-columns: 1fr; }
+  .location-map { width: 100%; }
   .quick-facts .shell { grid-template-columns: 1fr 1fr; }
   .quick-facts .shell > * { border-bottom: 1px solid var(--line); }
   .steps-grid { grid-template-columns: repeat(2,1fr); }
@@ -477,7 +482,9 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
   .inner-hero-aside { padding-left: 16px; }
   .form-row, .contact-cards { grid-template-columns: 1fr; }
   .contact-form { padding: 28px 20px; }
-  .location-band .shell { align-items: flex-start; flex-direction: column; }
+  .location-band .shell { align-items: flex-start; }
+  .location-map { min-height: 340px; border-radius: 22px 70px 22px 22px; }
+  .location-map iframe { height: 340px; }
   .story-number { right: -12px; width: 104px; height: 104px; }
   .facility-collage { padding: 0 0 50px 18px; }
   .facility-small { border-width: 6px; }

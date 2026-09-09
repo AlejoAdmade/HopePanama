@@ -729,6 +729,7 @@ setupReveal();
     "Tu nombre": "Your name",
     "nombre@correo.com": "name@email.com",
     "Cuéntanos brevemente qué necesitas": "Briefly tell us what you need",
+    "Mapa de Pacífica Salud, Punta Pacífica, Panamá": "Map of Pacífica Salud, Punta Pacífica, Panama",
     "Contactar a HOPE Panamá por WhatsApp": "Contact HOPE Panama on WhatsApp"
   };
 
