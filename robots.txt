@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /HopePanama/
+Sitemap: https://alejoadmade.github.io/HopePanama/sitemap.xml

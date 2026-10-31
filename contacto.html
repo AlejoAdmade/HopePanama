@@ -15,8 +15,8 @@
     <section class="contact-page section-space">
       <div class="contact-orbit"></div>
       <div class="shell contact-layout">
-        <div class="contact-copy" data-reveal><p class="kicker light"><span></span> Contacto</p><h1>Estamos cerca cuando necesitas orientación.</h1><p>Cuéntanos si deseas coordinar una cita, consultar un servicio o verificar documentación para tu aseguradora.</p><div class="contact-cards"><a href="tel:+5073863086"><small>Teléfonos</small><strong>386-3086 / 386-3588 / 386-3488</strong><span>↗</span></a><a href="mailto:atclientes@hopepanama.com"><small>Correo</small><strong>atclientes@hopepanama.com</strong><span>↗</span></a><div><small>Ubicación</small><strong>Pacífica Salud · Piso 8</strong><span>Panamá</span></div><div><small>Horario</small><strong>Lunes a viernes</strong><span>Hasta las 5:30 p. m.</span></div></div></div>
-        <form class="contact-form" id="contactForm" data-reveal><div class="form-heading"><span>Solicita orientación</span><h2>¿Cómo podemos ayudarte?</h2><p>Completa tus datos y prepararemos tu mensaje para enviarlo al centro.</p></div><label>Nombre completo<input type="text" name="name" required placeholder="Tu nombre"></label><div class="form-row"><label>Teléfono<input type="tel" name="phone" required placeholder="+507 6000-0000"></label><label>Correo<input type="email" name="email" required placeholder="nombre@correo.com"></label></div><label>Motivo<select name="reason"><option>Coordinar una cita</option><option>Consultar un servicio</option><option>Verificar aseguradora</option><option>Solicitar segunda opinión</option><option>Otra consulta</option></select></label><label>Mensaje<textarea name="message" rows="5" placeholder="Cuéntanos brevemente qué necesitas"></textarea></label><button class="button button-gold" type="submit">Preparar mensaje <span>↗</span></button><p class="form-status" id="formStatus" aria-live="polite"></p><small class="form-disclaimer">Este formulario abre tu aplicación de correo; no almacena información.</small></form>
+        <div class="contact-copy" data-reveal><p class="kicker light"><span></span> Contacto</p><h1>Estamos cerca cuando necesitas orientación.</h1><p>Cuéntanos si deseas coordinar una cita, consultar un servicio o verificar documentación para tu aseguradora.</p><div class="contact-cards"><a href="tel:+5073863086" data-track="phone_click" data-track-label="contact_card"><small>Teléfonos</small><strong class="phone-number">386-3086 / 386-3588 / 386-3488</strong></a><a href="mailto:atclientes@hopepanama.com" data-track="email_click"><small>Correo</small><strong>atclientes@hopepanama.com</strong></a><div><small>Ubicación</small><strong>Pacífica Salud · Piso 8</strong><span>Panamá</span></div><div><small>Horario</small><strong>Lunes a viernes</strong><span>Hasta las 5:30 p. m.</span></div></div></div>
+        <form class="contact-form" id="contactForm" data-reveal aria-describedby="formPrivacyNote"><div class="form-heading"><span>Agenda por WhatsApp</span><h2>¿Cómo podemos ayudarte?</h2><p>Completa tus datos y prepararemos un mensaje para enviarlo directamente al centro.</p></div><label>Nombre completo<input type="text" name="name" required autocomplete="name" placeholder="Tu nombre"></label><div class="form-row"><label>Teléfono<input type="tel" name="phone" required autocomplete="tel" inputmode="tel" placeholder="+507 6000-0000"></label><label>Correo <small>(opcional)</small><input type="email" name="email" autocomplete="email" placeholder="nombre@correo.com"></label></div><label>Motivo<select name="reason"><option>Coordinar una cita</option><option>Consultar un servicio</option><option>Verificar aseguradora</option><option>Solicitar segunda opinión</option><option>Otra consulta</option></select></label><label>Mensaje<textarea name="message" rows="5" placeholder="No incluyas diagnósticos ni información médica sensible"></textarea></label><label class="privacy-consent"><input type="checkbox" name="privacy" required><span>He leído la <a href="privacidad.html" target="_blank">Política de privacidad</a> y autorizo preparar el mensaje para WhatsApp.</span></label><button class="button button-gold" type="submit">Continuar en WhatsApp</button><p class="form-status" id="formStatus" aria-live="polite"></p><small class="form-disclaimer" id="formPrivacyNote">El sitio no almacena estos datos. Al continuar, la información se enviará mediante WhatsApp.</small></form>
       </div>
     </section>
     <section class="location-band">
@@ -25,16 +25,16 @@
           <p class="kicker"><span></span> Visítanos</p>
           <h2>San Francisco, Boulevard Pacífica Salud Vía Punta Darién.</h2>
           <p>Consultorios Pacífica Salud, Piso 8.</p>
-          <a class="button button-primary" href="https://www.google.com/maps/search/?api=1&amp;query=Pacifica+Salud+Punta+Pacifica+Panama" target="_blank" rel="noopener">Abrir en Google Maps <span>↗</span></a>
+          <div class="location-actions"><a class="button button-primary" href="https://www.google.com/maps/search/?api=1&amp;query=8.98202,-79.51026" target="_blank" rel="noopener noreferrer" data-track="map_open" data-track-label="google">Abrir en Google Maps</a><a class="button button-waze" href="https://www.waze.com/es-419/live-map/directions/pa/provincia-de-panama/panama/pacifica-salud-hospital-punta-pacifica?to=place.ChIJo_VghhyprI8RwKxQZkhAD-A" target="_blank" rel="noopener noreferrer" data-track="map_open" data-track-label="waze">Abrir en Waze</a></div>
         </div>
-        <div class="location-map" data-reveal>
-          <iframe
-            src="https://www.google.com/maps?q=Pacifica+Salud+Punta+Pacifica+Panama&amp;output=embed"
-            title="Mapa de Pacífica Salud, Punta Pacífica, Panamá"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
+        <div class="map-switcher" data-reveal>
+          <div class="map-tabs" role="tablist" aria-label="Proveedor del mapa"><button class="active" type="button" role="tab" aria-selected="true" aria-controls="googleMap" data-map-tab="google"><span class="map-provider-icon google" aria-hidden="true">G</span>Google Maps</button><button type="button" role="tab" aria-selected="false" aria-controls="wazeMap" data-map-tab="waze" tabindex="-1"><span class="map-provider-icon waze" aria-hidden="true">W</span>Waze</button></div>
+          <div class="location-map" id="googleMap" role="tabpanel" data-map-panel="google">
+            <iframe src="https://www.google.com/maps?q=8.98202,-79.51026&amp;z=16&amp;output=embed" title="Mapa de Google de Pacífica Salud, Punta Pacífica, Panamá" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="location-map" id="wazeMap" role="tabpanel" data-map-panel="waze" hidden>
+            <iframe data-src="https://embed.waze.com/iframe?zoom=16&amp;lat=8.98202&amp;lon=-79.51026&amp;pin=1&amp;desc=1" title="Mapa de Waze de Pacífica Salud, Punta Pacífica, Panamá" loading="lazy" allowfullscreen></iframe>
+          </div>
         </div>
       </div>
     </section>

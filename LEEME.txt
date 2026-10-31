@@ -1,5 +1,5 @@
-HOPE PANAMÁ — SITIO COMPLETO V3
-================================
+HOPE PANAMÁ — MEJORA INTEGRAL 2026
+==================================
 
 CÓMO ABRIRLO
 1. Extrae el archivo ZIP completo.
@@ -10,13 +10,19 @@ ARCHIVOS PRINCIPALES
 - index.html: página principal.
 - nosotros.html: información del centro.
 - equipo.html: directorio de especialistas.
-- doctor.html: perfil individual; cambia según el enlace seleccionado.
+- doctor-*.html: perfiles individuales con URL y SEO propio.
+- doctor.html: compatibilidad con los enlaces antiguos.
 - servicios.html: catálogo de servicios.
-- servicio.html: detalle individual; cambia según el enlace seleccionado.
-- contacto.html: ubicación, teléfonos y formulario de correo.
+- servicio-*.html: páginas de servicios con URL y SEO propio.
+- servicio.html: compatibilidad con los enlaces antiguos.
+- condiciones.html: directorio educativo de condiciones tratadas.
+- condicion-*.html: páginas bilingües de cada condición.
+- privacidad.html: política de privacidad del sitio.
+- contacto.html: citas por WhatsApp y mapas de Google Maps/Waze.
 - styles.css: diseño completo y comportamiento responsive.
-- script.js: navegación e interacciones.
-- data.js: textos editables de doctores, servicios y aseguradoras.
+- script.js: navegación, idioma, citas, analítica y accesibilidad.
+- data.js: textos editables, enlaces, condiciones, aseguradoras y configuración.
+- sitemap.xml y robots.txt: archivos para indexación en buscadores.
 - images: imágenes utilizadas por todo el sitio.
 
 IMPORTANTE
@@ -31,3 +37,24 @@ REDES SOCIALES DE LOS ESPECIALISTAS
 Cada perfil tiene un campo llamado instagram dentro de data.js. Sustituye el
 enlace https://www.instagram.com/ por la dirección real de cada especialista.
 El botón se actualizará en la tarjeta y en su página individual.
+
+CONFIGURACIÓN EDITABLE
+En la parte superior de data.js encontrarás config:
+- whatsappNumber: número que recibe las solicitudes de citas.
+- ga4Id: coloca un ID de Google Analytics 4, por ejemplo G-XXXXXXXXXX.
+  Si permanece vacío, no se carga ninguna herramienta de analítica.
+- developerUrl: enlace de la firma de Alejandro Admadé.
+- googleMapsUrl y wazeUrl: enlaces para llegar a la ubicación.
+
+SEO
+Después de subir todos los archivos a GitHub Pages, registra la dirección
+https://alejoadmade.github.io/HopePanama/ en Google Search Console y envía:
+https://alejoadmade.github.io/HopePanama/sitemap.xml
+
+ASEGURADORAS
+Cada logo abre la página oficial indicada en data.js. Puedes cambiar el nombre,
+imagen o enlace dentro del arreglo insurers.
+
+RENDIMIENTO
+Las páginas utilizan imágenes WebP optimizadas. Conserva los archivos .webp
+al subir la actualización; los PNG/JPG originales se mantienen como respaldo.

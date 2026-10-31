@@ -1,10 +1,73 @@
-/* HOPE Panamá V3 — navegación, contenido dinámico e interacciones */
+/* HOPE Panamá V6 — navegación, contenido dinámico e interacciones */
 
-const { doctors = [], services = [], insurers = [] } = window.HOPE_DATA || {};
+const {
+  config = {},
+  doctors = [],
+  services = [],
+  conditions = [],
+  insurers = []
+} = window.HOPE_DATA || {};
 const page = document.body.dataset.page || "inicio";
+const SITE_URL = config.siteUrl || "https://alejoadmade.github.io/HopePanama/";
+const WHATSAPP_NUMBER = config.whatsappNumber || "5073863086";
+
+function doctorFile(id) {
+  return `doctor-${id}.html`;
+}
+
+function serviceFile(id) {
+  return `servicio-${id}.html`;
+}
+
+function conditionFile(id) {
+  return `condicion-${id}.html`;
+}
+
+function currentLanguage() {
+  return document.documentElement.lang === "en" ? "en" : "es";
+}
+
+function whatsappMessage(type = "general", label = "", language = currentLanguage()) {
+  const messages = {
+    es: {
+      general: "Hola, deseo agendar una cita en HOPE Panamá. ¿Me pueden orientar sobre disponibilidad y requisitos?",
+      doctor: `Hola, deseo agendar una cita con ${label} en HOPE Panamá. ¿Me pueden indicar disponibilidad y requisitos?`,
+      service: `Hola, deseo consultar disponibilidad para ${label} en HOPE Panamá. ¿Me pueden orientar?`,
+      condition: `Hola, deseo agendar una valoración relacionada con ${label} en HOPE Panamá. ¿Me pueden orientar?`
+    },
+    en: {
+      general: "Hello, I would like to schedule an appointment at HOPE Panama. Could you guide me regarding availability and requirements?",
+      doctor: `Hello, I would like to schedule an appointment with ${label} at HOPE Panama. Could you share availability and requirements?`,
+      service: `Hello, I would like to ask about availability for ${label} at HOPE Panama. Could you guide me?`,
+      condition: `Hello, I would like to schedule an evaluation related to ${label} at HOPE Panama. Could you guide me?`
+    }
+  };
+  return messages[language]?.[type] || messages.es.general;
+}
+
+function whatsappUrl(type = "general", label = "", language = currentLanguage()) {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage(type, label, language))}`;
+}
+
+function updateWhatsappLinks(language = currentLanguage()) {
+  document.querySelectorAll("[data-whatsapp-context]").forEach((link) => {
+    link.href = whatsappUrl(link.dataset.whatsappContext, link.dataset.whatsappLabel || "", language);
+  });
+}
+
+function cleanHeadingPunctuation(root = document) {
+  root.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach((heading) => {
+    const walker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((node) => {
+      node.nodeValue = node.nodeValue.replace(/\.(\s*)$/u, "$1");
+    });
+  });
+}
 
 function serviceLinks() {
-  return services.map((service) => `<a href="servicio.html?id=${service.id}"><span>${service.number}</span>${service.title}</a>`).join("");
+  return services.map((service) => `<a href="${serviceFile(service.id)}"><span>${service.number}</span>${service.title}</a>`).join("");
 }
 
 function injectLayout() {
@@ -13,30 +76,32 @@ function injectLayout() {
 
   if (header) {
     header.innerHTML = `
+      <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
       <div class="topbar">
         <div class="shell topbar-inner">
-          <a href="https://maps.google.com/?q=Pacifica+Salud+Punta+Pacifica+Panama" target="_blank" rel="noopener">Pacífica Salud · Piso 8 · Punta Pacífica</a>
-          <div><a href="mailto:atclientes@hopepanama.com">atclientes@hopepanama.com</a><a href="tel:+5073863086">386-3086 / 386-3588 / 386-3488</a></div>
+          <a href="${config.googleMapsUrl}" target="_blank" rel="noopener noreferrer" data-track="map_open" data-track-label="topbar_google">Pacífica Salud · Piso 8 · Punta Pacífica</a>
+          <div><a href="mailto:atclientes@hopepanama.com" data-track="email_click">atclientes@hopepanama.com</a><a class="phone-link" href="tel:+5073863086" data-track="phone_click" data-track-label="topbar">386-3086 / 386-3588 / 386-3488</a></div>
         </div>
       </div>
       <header class="site-header" id="siteNav">
         <div class="shell nav-shell">
           <a class="brand" href="index.html" aria-label="HOPE Panamá, inicio"><img src="images/logo.png" alt="HOPE Panamá"></a>
-          <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav"><span></span><span></span><span></span><b>Menú</b></button>
+          <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav"><span></span><span></span><span></span><b>Menú</b></button>
           <nav class="main-nav" id="mainNav" aria-label="Navegación principal">
             <a class="${page === "inicio" ? "active" : ""}" href="index.html">Inicio</a>
             <a class="${page === "nosotros" ? "active" : ""}" href="nosotros.html">Quiénes somos</a>
             <a class="${page === "equipo" ? "active" : ""}" href="equipo.html">Equipo médico</a>
             <div class="nav-services">
-              <button class="${page === "servicios" ? "active" : ""}" id="servicesToggle" aria-expanded="false">Servicios <span>⌄</span></button>
-              <div class="mega-menu" id="megaMenu"><div class="mega-intro"><small>Atención integral</small><strong>Explora nuestros servicios especializados.</strong><a href="servicios.html">Ver todos <span>↗</span></a></div><div class="mega-links">${serviceLinks()}</div></div>
+              <button class="${page === "servicios" ? "active" : ""}" id="servicesToggle" aria-expanded="false" aria-controls="megaMenu">Servicios <span>⌄</span></button>
+              <div class="mega-menu" id="megaMenu"><div class="mega-intro"><small>Atención integral</small><strong>Explora nuestros servicios especializados.</strong><a href="servicios.html">Ver todos</a><a class="mega-conditions-link" href="condiciones.html">Condiciones que tratamos</a></div><div class="mega-links">${serviceLinks()}</div></div>
             </div>
+            <a class="${page === "condiciones" ? "active" : ""}" href="condiciones.html">Condiciones</a>
             <a href="index.html#aseguradoras">Aseguradoras</a>
             <div class="language-switch" role="group" aria-label="Cambiar idioma">
               <button type="button" data-language="es" aria-pressed="true">ES</button>
               <button type="button" data-language="en" aria-pressed="false">EN</button>
             </div>
-            <a class="nav-contact ${page === "contacto" ? "active" : ""}" href="contacto.html">Contacto <span>↗</span></a>
+            <a class="nav-contact ${page === "contacto" ? "active" : ""}" href="${whatsappUrl()}" target="_blank" rel="noopener noreferrer" data-whatsapp-context="general" data-track="appointment_click" data-track-label="navigation">Agendar cita</a>
           </nav>
         </div>
       </header>`;
@@ -46,15 +111,22 @@ function injectLayout() {
     footer.innerHTML = `
       <footer class="footer">
         <div class="shell footer-top">
-          <div class="footer-main"><img src="images/logo.png" alt="HOPE Panamá"><p>Centro de Hematología Oncología de Panamá Especializada.</p><a href="https://www.instagram.com/hope_puntapacifica/" target="_blank" rel="noopener">@hope_puntapacifica <span>↗</span></a></div>
-          <div><small>Navegación</small><a href="nosotros.html">Quiénes somos</a><a href="equipo.html">Equipo médico</a><a href="servicios.html">Servicios</a><a href="contacto.html">Contacto</a></div>
-          <div><small>Servicios</small><a href="servicio.html?id=consulta-externa">Consulta externa</a><a href="servicio.html?id=quimioterapia-ambulatoria">Quimioterapia ambulatoria</a><a href="servicio.html?id=aspirado-medula">Aspirado de médula</a><a href="servicio.html?id=psicooncologia">Psicooncología</a></div>
-          <div><small>Contacto</small><p>Pacífica Salud, Piso 8<br>Punta Pacífica, Panamá</p><a href="tel:+5073863086">386-3086 / 386-3588</a><a href="mailto:atclientes@hopepanama.com">atclientes@hopepanama.com</a></div>
+          <div class="footer-main"><img src="images/logo.png" alt="HOPE Panamá"><p>Centro de Hematología Oncología de Panamá Especializada.</p><a href="https://www.instagram.com/hope_puntapacifica/" target="_blank" rel="noopener">@hope_puntapacifica</a></div>
+          <div><small>Navegación</small><a href="nosotros.html">Quiénes somos</a><a href="equipo.html">Equipo médico</a><a href="servicios.html">Servicios</a><a href="condiciones.html">Condiciones que tratamos</a><a href="contacto.html">Contacto</a></div>
+          <div><small>Servicios</small><a href="${serviceFile("consulta-externa")}">Consulta externa</a><a href="${serviceFile("quimioterapia-ambulatoria")}">Quimioterapia ambulatoria</a><a href="${serviceFile("aspirado-medula")}">Aspirado de médula</a><a href="${serviceFile("psicooncologia")}">Psicooncología</a></div>
+          <div><small>Contacto</small><p>Pacífica Salud, Piso 8<br>Punta Pacífica, Panamá</p><a class="phone-link" href="tel:+5073863086" data-track="phone_click" data-track-label="footer">386-3086 / 386-3588</a><a href="mailto:atclientes@hopepanama.com" data-track="email_click">atclientes@hopepanama.com</a><a href="privacidad.html">Política de privacidad</a></div>
         </div>
-        <div class="shell footer-bottom"><span>© 2026 HOPE Panamá. Todos los derechos reservados.</span><span>Atención especializada con ciencia y humanidad.</span></div>
+        <div class="shell footer-bottom"><span>© 2026 HOPE Panamá. Todos los derechos reservados.</span><span>Atención especializada con ciencia y humanidad.</span><a class="developer-credit" href="${config.developerUrl}" target="_blank" rel="noopener noreferrer" aria-label="Diseño y desarrollo por ${config.developerName}">Diseño y desarrollo por ${config.developerName}</a></div>
       </footer>
-      <a class="whatsapp-button" href="https://wa.me/5073863086" target="_blank" rel="noopener" aria-label="Contactar a HOPE Panamá por WhatsApp"><span class="whatsapp-icon"><img src="images/whatsapp.png" alt="" aria-hidden="true"></span><b>Escríbenos</b></a>`;
+      <a class="whatsapp-button" href="${whatsappUrl()}" target="_blank" rel="noopener noreferrer" aria-label="Contactar a HOPE Panamá por WhatsApp" data-whatsapp-context="general" data-track="whatsapp_click" data-track-label="floating"><span class="whatsapp-icon"><img src="images/whatsapp.png" alt="" aria-hidden="true" width="25" height="25"></span><b>Escríbenos</b></a>
+      <aside class="privacy-banner" id="privacyBanner" role="dialog" aria-modal="false" aria-labelledby="privacyTitle" hidden>
+        <div><strong id="privacyTitle">Tu privacidad importa</strong><p>Usamos almacenamiento esencial para recordar el idioma. La medición anónima solo se activa si la aceptas.</p><a href="privacidad.html">Conocer más</a></div>
+        <div class="privacy-actions"><button type="button" class="privacy-essential" data-consent="denied">Solo necesarias</button><button type="button" class="privacy-accept" data-consent="granted">Aceptar analítica</button></div>
+      </aside>`;
   }
+
+  const main = document.querySelector("main");
+  if (main && !main.id) main.id = "main-content";
 }
 
 function setupNavigation() {
@@ -68,6 +140,8 @@ function setupNavigation() {
     const open = mainNav.classList.toggle("open");
     menuToggle.classList.toggle("open", open);
     menuToggle.setAttribute("aria-expanded", String(open));
+    menuToggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    document.body.classList.toggle("menu-open", open);
   });
 
   servicesToggle?.addEventListener("click", () => {
@@ -86,7 +160,20 @@ function setupNavigation() {
     mainNav.classList.remove("open");
     menuToggle?.classList.remove("open");
     menuToggle?.setAttribute("aria-expanded", "false");
+    menuToggle?.setAttribute("aria-label", "Abrir menú");
+    document.body.classList.remove("menu-open");
   }));
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    megaMenu?.classList.remove("open");
+    servicesToggle?.setAttribute("aria-expanded", "false");
+    mainNav?.classList.remove("open");
+    menuToggle?.classList.remove("open");
+    menuToggle?.setAttribute("aria-expanded", "false");
+    menuToggle?.setAttribute("aria-label", "Abrir menú");
+    document.body.classList.remove("menu-open");
+  });
 
   const updateHeader = () => siteNav?.classList.toggle("scrolled", window.scrollY > 24);
   updateHeader();
@@ -96,23 +183,34 @@ function setupNavigation() {
 function doctorCard(doctor, index) {
   return `
     <article class="doctor-card" data-category="${doctor.specialty}" data-reveal>
-      <a class="doctor-profile-link" href="doctor.html?id=${doctor.id}">
-        <div class="doctor-photo"><img src="${doctor.image}" alt="${doctor.name}" style="object-position:${doctor.position}"><span>${String(index + 1).padStart(2, "0")}</span><b>Ver perfil ↗</b></div>
+      <a class="doctor-profile-link" href="${doctorFile(doctor.id)}">
+        <div class="doctor-photo"><img src="${doctor.image.replace(".png", ".webp")}" alt="${doctor.name}" style="object-position:${doctor.position}" loading="lazy" decoding="async"><span>${String(index + 1).padStart(2, "0")}</span><b>Ver perfil</b></div>
         <div class="doctor-info"><small>Perfil del especialista</small><h3>${doctor.name}</h3><p>${doctor.specialty}</p></div>
       </a>
       <div class="doctor-social-row">
-        <a href="doctor.html?id=${doctor.id}">Conocer perfil</a>
-        <a class="instagram-link" href="${doctor.instagram}" target="_blank" rel="noopener" aria-label="Instagram de ${doctor.name}">Instagram <span>↗</span></a>
+        <a href="${doctorFile(doctor.id)}">Conocer perfil</a>
+        <a class="instagram-link" href="${doctor.instagram}" target="_blank" rel="noopener" aria-label="Instagram de ${doctor.name}">Instagram</a>
       </div>
     </article>`;
 }
 
 function serviceCard(service) {
   return `
-    <a class="service-card" href="servicio.html?id=${service.id}" data-category="${service.category}" data-reveal>
-      <div class="service-card-top"><span>${service.number}</span><img src="${service.icon}" alt=""></div>
+    <a class="service-card" href="${serviceFile(service.id)}" data-category="${service.category}" data-reveal>
+      <div class="service-card-top"><span>${service.number}</span><img src="${service.icon.replace(".png", ".webp")}" alt="" loading="lazy" decoding="async"></div>
       <div><small>${service.category}</small><h3>${service.title}</h3><p>${service.short}</p></div>
-      <b class="card-arrow">↗</b>
+    </a>`;
+}
+
+function conditionCard(condition) {
+  const content = condition[currentLanguage()] || condition.es;
+  return `
+    <a class="condition-card" href="${conditionFile(condition.id)}" data-reveal>
+      <span>${condition.number}</span>
+      <small>${condition.category}</small>
+      <h3>${content.title}</h3>
+      <p>${content.summary}</p>
+      <b aria-hidden="true">Conocer más</b>
     </a>`;
 }
 
@@ -127,8 +225,17 @@ function renderGrids() {
     grid.innerHTML = services.slice(0, limit).map(serviceCard).join("");
   });
 
+  document.querySelectorAll("[data-condition-grid]").forEach((grid) => {
+    const limit = Number(grid.dataset.limit || conditions.length);
+    grid.innerHTML = conditions.slice(0, limit).map(conditionCard).join("");
+  });
+
   document.querySelectorAll("[data-insurance-grid]").forEach((grid) => {
-    grid.innerHTML = insurers.map((image, index) => `<div class="insurance-card" data-reveal><img src="${image}" alt="Aseguradora asociada ${index + 1}"></div>`).join("");
+    grid.innerHTML = insurers.map((insurer) => `
+      <a class="insurance-card" href="${insurer.url}" target="_blank" rel="noopener noreferrer" data-reveal data-track="insurer_click" data-track-label="${insurer.name}" aria-label="Visitar sitio oficial de ${insurer.name}; se abre en una nueva pestaña">
+        <img src="${insurer.image}" alt="${insurer.name}" loading="lazy" decoding="async">
+        <span>Sitio oficial</span>
+      </a>`).join("");
   });
 }
 
@@ -145,19 +252,67 @@ function setupFilters() {
   }));
 }
 
+function setMetaContent(selector, value, attribute = "content") {
+  const element = document.querySelector(selector);
+  if (element && value) element.setAttribute(attribute, value);
+}
+
+function updatePageSeo({ title, description, url, image, type = "website", schema }) {
+  document.title = title;
+  setMetaContent('meta[name="description"]', description);
+  setMetaContent('meta[property="og:title"]', title);
+  setMetaContent('meta[property="og:description"]', description);
+  setMetaContent('meta[property="og:url"]', url);
+  setMetaContent('meta[property="og:image"]', image || `${SITE_URL}images/og-image.png`);
+  setMetaContent('meta[property="og:type"]', type);
+  setMetaContent('meta[name="twitter:title"]', title);
+  setMetaContent('meta[name="twitter:description"]', description);
+  setMetaContent('meta[name="twitter:image"]', image || `${SITE_URL}images/og-image.png`);
+  setMetaContent('link[rel="canonical"]', url, "href");
+
+  if (schema) {
+    let structuredData = document.querySelector("#dynamicStructuredData");
+    if (!structuredData) {
+      structuredData = document.createElement("script");
+      structuredData.id = "dynamicStructuredData";
+      structuredData.type = "application/ld+json";
+      document.head.appendChild(structuredData);
+    }
+    structuredData.textContent = JSON.stringify(schema);
+  }
+}
+
 function renderDoctorDetail() {
   const target = document.querySelector("#doctorDetail");
   if (!target) return;
-  const id = new URLSearchParams(window.location.search).get("id");
+  const id = document.body.dataset.doctorId || new URLSearchParams(window.location.search).get("id");
   const doctor = doctors.find((item) => item.id === id) || doctors[0];
   const others = doctors.filter((item) => item.id !== doctor.id).slice(0, 3);
-  document.title = `${doctor.name} | HOPE Panamá`;
+  const canonical = `${SITE_URL}${doctorFile(doctor.id)}`;
+  updatePageSeo({
+    title: `${doctor.name} | HOPE Panamá`,
+    description: `Conoce el perfil de ${doctor.name}, ${doctor.specialty.toLowerCase()}, y solicita una cita en HOPE Panamá.`,
+    url: canonical,
+    image: `${SITE_URL}${doctor.image}`,
+    type: "profile",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "Physician",
+      name: doctor.name,
+      image: `${SITE_URL}${doctor.image}`,
+      description: doctor.intro,
+      medicalSpecialty: doctor.specialty,
+      url: canonical,
+      worksFor: { "@type": "MedicalClinic", name: "HOPE Panamá", url: SITE_URL },
+      sameAs: doctor.instagram && doctor.instagram !== "https://www.instagram.com/" ? [doctor.instagram] : []
+    }
+  });
   target.innerHTML = `
     <section class="profile-hero">
       <div class="profile-orbit"></div>
       <div class="shell profile-grid">
-        <div class="profile-copy" data-reveal><a class="breadcrumb" href="equipo.html">← Equipo médico</a><span class="demo-badge">Perfil demostrativo</span><p class="kicker light"><span></span> ${doctor.specialty}</p><h1>${doctor.name}</h1><p>${doctor.intro}</p><div class="profile-actions"><a class="button button-gold" href="contacto.html">Solicitar orientación <span>↗</span></a><a class="button button-dark-ghost" href="tel:+5073863086">Llamar al centro</a><a class="button button-instagram" href="${doctor.instagram}" target="_blank" rel="noopener">Instagram <span>↗</span></a></div></div>
-        <div class="profile-photo-wrap" data-reveal><div class="profile-photo"><img src="${doctor.image}" alt="${doctor.name}" style="object-position:${doctor.position}"></div><div class="profile-fact"><small>Experiencia</small><strong>${doctor.experience}</strong><span>Información demostrativa</span></div></div>
+        <div class="profile-copy" data-reveal><a class="breadcrumb" href="equipo.html">← Equipo médico</a><span class="demo-badge">Perfil demostrativo</span><p class="kicker light"><span></span> ${doctor.specialty}</p><h1>${doctor.name}</h1><p>${doctor.intro}</p><div class="profile-actions"><a class="button button-gold" href="${whatsappUrl("doctor", doctor.name)}" target="_blank" rel="noopener noreferrer" data-whatsapp-context="doctor" data-whatsapp-label="${doctor.name}" data-track="appointment_click" data-track-label="doctor_${doctor.id}">Agendar una cita</a><a class="button button-dark-ghost phone-link" href="tel:+5073863086" data-track="phone_click" data-track-label="doctor_${doctor.id}">Llamar al centro</a><a class="button button-instagram" href="${doctor.instagram}" target="_blank" rel="noopener noreferrer">Instagram</a></div></div>
+        <div class="profile-photo-wrap" data-reveal><div class="profile-photo"><img src="${doctor.image.replace(".png", ".webp")}" alt="${doctor.name}" style="object-position:${doctor.position}" decoding="async"></div><div class="profile-fact"><small>Experiencia</small><strong>${doctor.experience}</strong><span>Información demostrativa</span></div></div>
       </div>
     </section>
     <section class="profile-content section-space"><div class="shell profile-content-grid">
@@ -165,27 +320,122 @@ function renderDoctorDetail() {
       <aside class="expertise-card" data-reveal><small>Áreas de atención</small><h3>Enfoque clínico</h3><ul>${doctor.areas.map((area) => `<li><span>✓</span>${area}</li>`).join("")}</ul><div class="language"><span>Idiomas</span><strong>${doctor.languages}</strong></div></aside>
     </div></section>
     <section class="credentials section-space soft-section"><div class="shell credentials-grid"><div data-reveal><p class="kicker"><span></span> Trayectoria</p><h2>Formación y actualización profesional.</h2><p class="demo-note">Los siguientes datos son de demostración y deben reemplazarse por credenciales verificadas.</p></div><ol data-reveal>${doctor.education.map((item, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><p>${item}</p></li>`).join("")}</ol></div></section>
-    <section class="related-section section-space"><div class="shell"><div class="split-heading compact" data-reveal><div><p class="kicker"><span></span> Más especialistas</p><h2>Conoce al resto del equipo.</h2></div><a class="text-link" href="equipo.html">Ver equipo completo <span>↗</span></a></div><div class="doctor-grid related-grid">${others.map((item) => doctorCard(item, doctors.indexOf(item))).join("")}</div></div></section>`;
+    <section class="related-section section-space"><div class="shell"><div class="split-heading compact" data-reveal><div><p class="kicker"><span></span> Más especialistas</p><h2>Conoce al resto del equipo.</h2></div><a class="text-link" href="equipo.html">Ver equipo completo</a></div><div class="doctor-grid related-grid">${others.map((item) => doctorCard(item, doctors.indexOf(item))).join("")}</div></div></section>`;
 }
 
 function renderServiceDetail() {
   const target = document.querySelector("#serviceDetail");
   if (!target) return;
-  const id = new URLSearchParams(window.location.search).get("id");
+  const id = document.body.dataset.serviceId || new URLSearchParams(window.location.search).get("id");
   const service = services.find((item) => item.id === id) || services[0];
   const related = services.filter((item) => item.id !== service.id).slice(0, 3);
-  document.title = `${service.title} | HOPE Panamá`;
+  const canonical = `${SITE_URL}${serviceFile(service.id)}`;
+  updatePageSeo({
+    title: `${service.title} | HOPE Panamá`,
+    description: service.short,
+    url: canonical,
+    image: `${SITE_URL}images/og-image.png`,
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "MedicalProcedure",
+      name: service.title,
+      description: service.short,
+      url: canonical,
+      provider: { "@type": "MedicalClinic", name: "HOPE Panamá", url: SITE_URL }
+    }
+  });
   target.innerHTML = `
     <section class="service-detail-hero"><div class="service-number-bg">${service.number}</div><div class="shell service-detail-grid">
-      <div data-reveal><a class="breadcrumb" href="servicios.html">← Todos los servicios</a><p class="kicker light"><span></span> ${service.category}</p><h1>${service.title}</h1><p>${service.intro}</p><a class="button button-gold" href="contacto.html">Solicitar orientación <span>↗</span></a></div>
-      <div class="service-symbol" data-reveal><img src="${service.icon}" alt=""><span>${service.number}</span><small>HOPE Panamá</small></div>
+      <div data-reveal><a class="breadcrumb" href="servicios.html">← Todos los servicios</a><p class="kicker light"><span></span> ${service.category}</p><h1>${service.title}</h1><p>${service.intro}</p><a class="button button-gold" href="${whatsappUrl("service", service.title)}" target="_blank" rel="noopener noreferrer" data-whatsapp-context="service" data-whatsapp-label="${service.title}" data-track="appointment_click" data-track-label="service_${service.id}">Agendar una cita</a></div>
+      <div class="service-symbol" data-reveal><img src="${service.icon.replace(".png", ".webp")}" alt=""><span>${service.number}</span><small>HOPE Panamá</small></div>
     </div></section>
-    <section class="quick-facts"><div class="shell"><div><small>Duración estimada</small><strong>${service.duration}</strong></div><div><small>Modalidad</small><strong>${service.setting}</strong></div><div><small>Dirigido a</small><strong>${service.forWho}</strong></div><a href="contacto.html">Consultar disponibilidad <span>↗</span></a></div></section>
+    <section class="quick-facts"><div class="shell"><div><small>Duración estimada</small><strong>${service.duration}</strong></div><div><small>Modalidad</small><strong>${service.setting}</strong></div><div><small>Dirigido a</small><strong>${service.forWho}</strong></div><a href="${whatsappUrl("service", service.title)}" target="_blank" rel="noopener noreferrer" data-whatsapp-context="service" data-whatsapp-label="${service.title}" data-track="appointment_click" data-track-label="availability_${service.id}">Consultar disponibilidad</a></div></section>
     <section class="service-overview section-space"><div class="shell overview-grid"><div data-reveal><p class="kicker"><span></span> Sobre el servicio</p><h2>Qué incluye tu atención.</h2><p>${service.short}</p></div><ul class="include-list" data-reveal>${service.includes.map((item, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><p>${item}</p></li>`).join("")}</ul></div></section>
     <section class="what-to-expect section-space dark-section"><div class="shell"><div class="split-heading" data-reveal><div><p class="kicker light"><span></span> Qué esperar</p><h2>Un proceso organizado de principio a fin.</h2></div><p>Cada caso puede requerir ajustes. El equipo confirmará las indicaciones específicas antes de tu atención.</p></div><div class="steps-grid" data-reveal>${service.steps.map((step, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><div></div><h3>${step}</h3></article>`).join("")}</div></div></section>
     <section class="preparation section-space"><div class="shell prep-grid"><div data-reveal><p class="kicker"><span></span> Preparación</p><h2>Antes de tu cita.</h2><p>Sigue siempre las instrucciones entregadas por tu especialista, ya que pueden variar según tu condición y tratamiento.</p></div><div class="prep-list" data-reveal>${service.preparation.map((item) => `<div><span>✓</span><p>${item}</p></div>`).join("")}</div></div></section>
     <section class="faq-section section-space soft-section"><div class="shell faq-layout"><div data-reveal><p class="kicker"><span></span> Preguntas frecuentes</p><h2>Resolvemos dudas comunes.</h2></div><div class="faq-stack" data-reveal>${service.faq.map(([question, answer]) => `<details><summary>${question}<span>+</span></summary><p>${answer}</p></details>`).join("")}</div></div></section>
-    <section class="related-section section-space"><div class="shell"><div class="split-heading compact" data-reveal><div><p class="kicker"><span></span> También puede interesarte</p><h2>Otros servicios de HOPE.</h2></div><a class="text-link" href="servicios.html">Ver todos <span>↗</span></a></div><div class="service-grid related-grid">${related.map(serviceCard).join("")}</div></div></section>`;
+    <section class="related-section section-space"><div class="shell"><div class="split-heading compact" data-reveal><div><p class="kicker"><span></span> También puede interesarte</p><h2>Otros servicios de HOPE.</h2></div><a class="text-link" href="servicios.html">Ver todos</a></div><div class="service-grid related-grid">${related.map(serviceCard).join("")}</div></div></section>`;
+}
+
+function renderConditionDetail(language = currentLanguage()) {
+  const target = document.querySelector("#conditionDetail");
+  if (!target) return;
+  const id = document.body.dataset.conditionId || new URLSearchParams(window.location.search).get("id");
+  const condition = conditions.find((item) => item.id === id) || conditions[0];
+  const content = condition[language] || condition.es;
+  const canonical = `${SITE_URL}${conditionFile(condition.id)}`;
+  const related = conditions.filter((item) => item.id !== condition.id).slice(0, 3);
+
+  updatePageSeo({
+    title: `${content.title} | HOPE Panamá`,
+    description: content.meta,
+    url: canonical,
+    image: `${SITE_URL}images/og-image.png`,
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      name: content.title,
+      description: content.summary,
+      url: canonical,
+      lastReviewed: "2026-10-31",
+      audience: { "@type": "MedicalAudience", audienceType: "Patient" },
+      about: { "@type": "MedicalCondition", name: content.title, description: content.summary }
+    }
+  });
+
+  const labels = language === "en" ? {
+    back: "← Conditions we treat",
+    kicker: "Educational information",
+    appointment: "Schedule an appointment",
+    overview: "About this condition",
+    overviewTitle: "Understanding the condition is the first step.",
+    signs: "Possible signs",
+    signsTitle: "Changes that deserve medical evaluation.",
+    evaluation: "Evaluation",
+    evaluationTitle: "How the diagnostic process may begin.",
+    care: "Care at HOPE",
+    careTitle: "Specialized, coordinated support.",
+    source: "Official information source",
+    disclaimer: "This content is educational and does not replace a medical consultation. Symptoms may have many causes; only a qualified professional can diagnose a condition.",
+    related: "Related conditions",
+    relatedTitle: "Continue exploring reliable information."
+  } : {
+    back: "← Condiciones que tratamos",
+    kicker: "Información educativa",
+    appointment: "Agendar una cita",
+    overview: "Sobre esta condición",
+    overviewTitle: "Comprender la condición es el primer paso.",
+    signs: "Posibles señales",
+    signsTitle: "Cambios que merecen evaluación médica.",
+    evaluation: "Evaluación",
+    evaluationTitle: "Cómo puede comenzar el proceso diagnóstico.",
+    care: "Atención en HOPE",
+    careTitle: "Acompañamiento especializado y coordinado.",
+    source: "Fuente oficial de información",
+    disclaimer: "Este contenido es educativo y no reemplaza una consulta médica. Los síntomas pueden tener muchas causas; solo un profesional idóneo puede realizar un diagnóstico.",
+    related: "Condiciones relacionadas",
+    relatedTitle: "Continúa explorando información confiable."
+  };
+
+  target.innerHTML = `
+    <section class="condition-hero">
+      <div class="condition-orbit"></div>
+      <div class="shell condition-hero-grid">
+        <div data-reveal><a class="breadcrumb" href="condiciones.html">${labels.back}</a><p class="kicker light"><span></span> ${condition.category}</p><h1>${content.title}</h1><p>${content.summary}</p><a class="button button-gold" href="${whatsappUrl("condition", content.title, language)}" target="_blank" rel="noopener noreferrer" data-whatsapp-context="condition" data-whatsapp-label="${content.title}" data-track="appointment_click" data-track-label="condition_${condition.id}">${labels.appointment}</a></div>
+        <div class="condition-number" aria-hidden="true"><span>${condition.number}</span><small>HOPE Panamá</small></div>
+      </div>
+    </section>
+    <section class="condition-overview section-space"><div class="shell overview-grid"><div data-reveal><p class="kicker"><span></span> ${labels.overview}</p><h2>${labels.overviewTitle}</h2></div><div data-reveal><p class="condition-lead">${content.overview}</p><div class="medical-disclaimer">${labels.disclaimer}</div></div></div></section>
+    <section class="condition-info section-space soft-section"><div class="shell condition-columns">
+      <article data-reveal><p class="kicker"><span></span> ${labels.signs}</p><h2>${labels.signsTitle}</h2><ul>${content.signs.map((item) => `<li><span>✓</span>${item}</li>`).join("")}</ul></article>
+      <article data-reveal><p class="kicker"><span></span> ${labels.evaluation}</p><h2>${labels.evaluationTitle}</h2><ol>${content.evaluation.map((item, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span>${item}</li>`).join("")}</ol></article>
+      <article class="condition-care" data-reveal><p class="kicker light"><span></span> ${labels.care}</p><h2>${labels.careTitle}</h2><ul>${content.care.map((item) => `<li><span>✓</span>${item}</li>`).join("")}</ul><a href="${condition.sourceUrl}" target="_blank" rel="noopener noreferrer">${labels.source}: ${condition.sourceName}</a></article>
+    </div></section>
+    <section class="related-section section-space"><div class="shell"><div class="split-heading compact" data-reveal><div><p class="kicker"><span></span> ${labels.related}</p><h2>${labels.relatedTitle}</h2></div><a class="text-link" href="condiciones.html">${labels.back.replace("← ", "")}</a></div><div class="condition-grid related-grid">${related.map(conditionCard).join("")}</div></div></section>`;
+
+  if (document.body.dataset.language) {
+    target.querySelectorAll("[data-reveal]").forEach((item) => item.classList.add("revealed"));
+  }
 }
 
 function setupContactForm() {
@@ -195,10 +445,91 @@ function setupContactForm() {
     event.preventDefault();
     if (!form.reportValidity()) return;
     const values = new FormData(form);
-    const subject = encodeURIComponent(`Consulta HOPE Panamá — ${values.get("reason")}`);
-    const body = encodeURIComponent(`Nombre: ${values.get("name")}\nTeléfono: ${values.get("phone")}\nCorreo: ${values.get("email")}\nMotivo: ${values.get("reason")}\n\nMensaje:\n${values.get("message") || "Sin mensaje adicional"}`);
-    status.textContent = document.documentElement.lang === "en" ? "Opening your email application…" : "Abriendo tu aplicación de correo…";
-    window.location.href = `mailto:atclientes@hopepanama.com?subject=${subject}&body=${body}`;
+    const language = currentLanguage();
+    const message = language === "en"
+      ? `Hello, I would like to schedule an appointment at HOPE Panama.\n\nName: ${values.get("name")}\nPhone: ${values.get("phone")}\nEmail: ${values.get("email") || "Not provided"}\nReason: ${values.get("reason")}\n\nMessage:\n${values.get("message") || "No additional message"}`
+      : `Hola, deseo agendar una cita en HOPE Panamá.\n\nNombre: ${values.get("name")}\nTeléfono: ${values.get("phone")}\nCorreo: ${values.get("email") || "No proporcionado"}\nMotivo: ${values.get("reason")}\n\nMensaje:\n${values.get("message") || "Sin mensaje adicional"}`;
+    status.textContent = language === "en" ? "Opening WhatsApp…" : "Abriendo WhatsApp…";
+    trackEvent("appointment_form_submit", { reason: String(values.get("reason") || "") });
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  });
+}
+
+function setupMapSwitcher() {
+  const buttons = Array.from(document.querySelectorAll("[data-map-tab]"));
+  const panels = Array.from(document.querySelectorAll("[data-map-panel]"));
+  if (!buttons.length) return;
+
+  buttons.forEach((button) => button.addEventListener("click", () => {
+    const selected = button.dataset.mapTab;
+    buttons.forEach((item) => {
+      const active = item.dataset.mapTab === selected;
+      item.classList.toggle("active", active);
+      item.setAttribute("aria-selected", String(active));
+      item.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach((panel) => {
+      const active = panel.dataset.mapPanel === selected;
+      panel.hidden = !active;
+      if (active) {
+        const iframe = panel.querySelector("iframe[data-src]");
+        if (iframe && !iframe.getAttribute("src")) {
+          iframe.src = iframe.dataset.src;
+          iframe.removeAttribute("data-src");
+        }
+      }
+    });
+    trackEvent("map_tab_select", { provider: selected });
+  }));
+}
+
+const CONSENT_KEY = "hope-analytics-consent";
+
+function trackEvent(name, parameters = {}) {
+  if (typeof window.gtag === "function") {
+    window.gtag("event", name, parameters);
+  }
+}
+
+function loadAnalytics() {
+  const measurementId = String(config.ga4Id || "").trim();
+  if (!measurementId || !measurementId.startsWith("G-") || document.querySelector("[data-hope-analytics]")) return;
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.dataset.hopeAnalytics = "true";
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+  document.head.appendChild(script);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() { window.dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  window.gtag("config", measurementId, { anonymize_ip: true });
+}
+
+function setupPrivacyAndAnalytics() {
+  const banner = document.querySelector("#privacyBanner");
+  let consent = null;
+  try { consent = localStorage.getItem(CONSENT_KEY); } catch (error) { /* El modo file:// puede restringir almacenamiento. */ }
+
+  if (!consent && banner) banner.hidden = false;
+  if (consent === "granted") loadAnalytics();
+
+  banner?.querySelectorAll("[data-consent]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const choice = button.dataset.consent;
+      try { localStorage.setItem(CONSENT_KEY, choice); } catch (error) { /* Se conserva la sesión actual. */ }
+      banner.hidden = true;
+      if (choice === "granted") loadAnalytics();
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target.closest("[data-track]");
+    if (!target) return;
+    trackEvent(target.dataset.track, {
+      label: target.dataset.trackLabel || target.textContent.trim().slice(0, 80),
+      destination: target.getAttribute("href") || ""
+    });
   });
 }
 
@@ -213,8 +544,12 @@ function setupReveal() {
       entry.target.classList.add("revealed");
       observer.unobserve(entry.target);
     }
-  }), { threshold: 0.12, rootMargin: "0px 0px -35px" });
-  items.forEach((item) => observer.observe(item));
+  }), { threshold: 0.08, rootMargin: "0px 0px 120px" });
+  items.forEach((item) => {
+    if (item.getBoundingClientRect().top < window.innerHeight + 100) item.classList.add("revealed");
+    else observer.observe(item);
+  });
+  window.setTimeout(() => items.forEach((item) => item.classList.add("revealed")), 1500);
 }
 
 injectLayout();
@@ -222,9 +557,24 @@ setupNavigation();
 renderGrids();
 renderDoctorDetail();
 renderServiceDetail();
+renderConditionDetail();
 setupFilters();
 setupContactForm();
+setupMapSwitcher();
+setupPrivacyAndAnalytics();
+updateWhatsappLinks();
 setupReveal();
+
+document.addEventListener("hope:languagechange", (event) => {
+  const language = event.detail?.language || currentLanguage();
+  document.querySelectorAll("[data-condition-grid]").forEach((grid) => {
+    const limit = Number(grid.dataset.limit || conditions.length);
+    grid.innerHTML = conditions.slice(0, limit).map(conditionCard).join("");
+    grid.querySelectorAll("[data-reveal]").forEach((item) => item.classList.add("revealed"));
+  });
+  renderConditionDetail(language);
+});
+
 (function () {
   "use strict";
 
@@ -242,7 +592,11 @@ setupReveal();
     "Equipo médico": "Medical team",
     "Servicios": "Services",
     "Aseguradoras": "Insurance",
+    "Condiciones": "Conditions",
+    "Condiciones que tratamos": "Conditions we treat",
     "Contacto": "Contact",
+    "Agendar cita": "Schedule",
+    "Agendar una cita": "Schedule an appointment",
     "Menú": "Menu",
     "Atención integral": "Comprehensive care",
     "Explora nuestros servicios especializados.": "Explore our specialized services.",
@@ -258,6 +612,66 @@ setupReveal();
     "© 2026 HOPE Panamá. Todos los derechos reservados.": "© 2026 HOPE Panama. All rights reserved.",
     "Atención especializada con ciencia y humanidad.": "Specialized care with science and humanity.",
     "Escríbenos": "Message us",
+    "Política de privacidad": "Privacy policy",
+    "Diseño y desarrollo por Alejandro Admadé": "Design and development by Alejandro Admadé",
+    "Tu privacidad importa": "Your privacy matters",
+    "Usamos almacenamiento esencial para recordar el idioma. La medición anónima solo se activa si la aceptas.": "We use essential storage to remember your language. Anonymous analytics are activated only if you accept.",
+    "Conocer más": "Learn more",
+    "Solo necesarias": "Necessary only",
+    "Aceptar analítica": "Accept analytics",
+    "Saltar al contenido principal": "Skip to main content",
+    "Sitio oficial": "Official website",
+    "Hematología": "Hematology",
+    "Oncología": "Oncology",
+    "Hemato-oncología": "Hematology-oncology",
+
+    /* Condiciones */
+    "Información clara para dar el siguiente paso.": "Clear information to help you take the next step.",
+    "Conoce algunas de las condiciones hematológicas y oncológicas que evalúa nuestro equipo.": "Learn about some of the hematologic and oncologic conditions evaluated by our team.",
+    "Explorar condiciones": "Explore conditions",
+    "Información para pacientes": "Patient information",
+    "Condiciones que tratamos.": "Conditions we treat.",
+    "Conoce conceptos básicos, posibles señales y cómo puede comenzar una evaluación especializada.": "Learn the basics, possible signs, and how a specialized evaluation may begin.",
+    "Contenido educativo · Fuentes oficiales": "Educational content · Official sources",
+    "Hematología y oncología": "Hematology and oncology",
+    "Información clara para conversar con tu especialista.": "Clear information to discuss with your specialist.",
+    "Estos contenidos no sustituyen una consulta ni permiten realizar un diagnóstico. Si tienes síntomas o inquietudes, solicita una valoración profesional.": "This content does not replace a consultation or provide a diagnosis. If you have symptoms or concerns, request a professional evaluation.",
+    "Información responsable": "Responsible information",
+    "Contenido educativo respaldado por fuentes oficiales.": "Educational content supported by official sources.",
+    "Las páginas incluyen enlaces al Instituto Nacional del Cáncer de Estados Unidos y al National Heart, Lung, and Blood Institute para ampliar la información.": "The pages include links to the U.S. National Cancer Institute and the National Heart, Lung, and Blood Institute for further information.",
+    "La evaluación, el diagnóstico y el tratamiento siempre deben ser indicados por profesionales idóneos.": "Evaluation, diagnosis, and treatment must always be provided by qualified professionals.",
+    "¿Necesitas una valoración especializada?": "Do you need a specialized evaluation?",
+    "Conversemos para ayudarte a identificar el especialista adecuado.": "Let's talk so we can help you identify the right specialist.",
+
+    /* Contacto, mapas y privacidad */
+    "Agenda por WhatsApp": "Schedule through WhatsApp",
+    "Completa tus datos y prepararemos un mensaje para enviarlo directamente al centro.": "Complete your details and we will prepare a message to send directly to the center.",
+    "(opcional)": "(optional)",
+    "No incluyas diagnósticos ni información médica sensible": "Do not include diagnoses or sensitive medical information",
+    "He leído la": "I have read the",
+    "y autorizo preparar el mensaje para WhatsApp.": "and authorize the message to be prepared for WhatsApp.",
+    "Continuar en WhatsApp": "Continue in WhatsApp",
+    "El sitio no almacena estos datos. Al continuar, la información se enviará mediante WhatsApp.": "The site does not store this information. By continuing, it will be sent through WhatsApp.",
+    "Abrir en Google Maps": "Open in Google Maps",
+    "Abrir en Waze": "Open in Waze",
+    "Proveedor del mapa": "Map provider",
+    "Privacidad": "Privacy",
+    "Tu información merece cuidado.": "Your information deserves care.",
+    "Esta política explica qué sucede cuando utilizas el sitio, cambias de idioma o decides contactar a HOPE.": "This policy explains what happens when you use the site, change languages, or decide to contact HOPE.",
+    "Última actualización: octubre de 2026": "Last updated: October 2026",
+    "Resumen": "Summary",
+    "Datos y formularios": "Data and forms",
+    "Almacenamiento local": "Local storage",
+    "Analítica": "Analytics",
+    "Servicios externos": "External services",
+    "El formulario de contacto prepara un mensaje en tu dispositivo y abre WhatsApp. Este sitio no guarda el nombre, teléfono, correo ni mensaje que escribes.": "The contact form prepares a message on your device and opens WhatsApp. This site does not store the name, phone number, email, or message you enter.",
+    "Evita incluir diagnósticos, resultados de laboratorio u otra información médica sensible. La atención clínica debe coordinarse directamente con el centro.": "Avoid including diagnoses, laboratory results, or other sensitive medical information. Clinical care must be coordinated directly with the center.",
+    "El navegador recuerda tu preferencia de idioma y tu decisión sobre analítica mediante almacenamiento local. Puedes eliminar estas preferencias desde la configuración del navegador.": "Your browser remembers your language preference and analytics choice through local storage. You can remove these preferences from your browser settings.",
+    "Analítica opcional": "Optional analytics",
+    "La medición anónima solo se activa si la aceptas y si HOPE configura una herramienta de analítica. Puede registrar acciones generales como abrir WhatsApp, llamar, consultar un mapa o visitar una aseguradora, sin enviar el contenido del formulario.": "Anonymous analytics are activated only if you accept and HOPE configures an analytics tool. It may record general actions such as opening WhatsApp, calling, viewing a map, or visiting an insurer, without sending form content.",
+    "El sitio ofrece enlaces a WhatsApp, Instagram, Google Maps, Waze y las páginas oficiales de aseguradoras. Al abrirlos, se aplican las políticas de privacidad de cada proveedor.": "The site links to WhatsApp, Instagram, Google Maps, Waze, and official insurer websites. When you open them, each provider's privacy policy applies.",
+    "Para consultas relacionadas con este sitio, puedes escribir a": "For questions related to this site, you can write to",
+    "o llamar al": "or call",
 
     /* Inicio */
     "Hematología · Oncología · Panamá": "Hematology · Oncology · Panama",
@@ -265,6 +679,7 @@ setupReveal();
     "Humanidad que acompaña.": "Humanity that stands by you.",
     "Atención especializada, diagnóstico preciso y acompañamiento integral en cada etapa del proceso.": "Specialized care, precise diagnosis, and comprehensive support at every stage of the process.",
     "Solicitar orientación": "Request guidance",
+    "Agendar una cita": "Schedule an appointment",
     "Explorar servicios": "Explore services",
     "Atención en": "Care available at",
     "Pacífica Salud · Piso 8": "Pacífica Salud · 8th Floor",
@@ -331,7 +746,7 @@ setupReveal();
     "Nuestro equipo puede orientarte antes de coordinar la cita.": "Our team can guide you before scheduling an appointment.",
     "Ver servicios": "View services",
     "Perfil demostrativo": "Sample profile",
-    "Ver perfil ↗": "View profile ↗",
+    "Ver perfil": "View profile",
 
     /* Servicios */
     "Servicios médicos": "Medical services",
@@ -720,16 +1135,25 @@ setupReveal();
     "Contacto | HOPE Panamá": "Contact | HOPE Panama",
     "Perfil médico | HOPE Panamá": "Medical Profile | HOPE Panama",
     "Servicio médico | HOPE Panamá": "Medical Service | HOPE Panama"
+    ,"Condiciones que tratamos | HOPE Panamá": "Conditions We Treat | HOPE Panama"
+    ,"Condición médica | HOPE Panamá": "Medical Condition | HOPE Panama"
+    ,"Política de privacidad | HOPE Panamá": "Privacy Policy | HOPE Panama"
   };
 
   const attributeTranslations = {
     "Abrir menú": "Open menu",
+    "Cerrar menú": "Close menu",
     "Navegación principal": "Main navigation",
     "Cambiar idioma": "Change language",
     "Tu nombre": "Your name",
     "nombre@correo.com": "name@email.com",
     "Cuéntanos brevemente qué necesitas": "Briefly tell us what you need",
+    "No incluyas diagnósticos ni información médica sensible": "Do not include diagnoses or sensitive medical information",
+    "Proveedor del mapa": "Map provider",
     "Mapa de Pacífica Salud, Punta Pacífica, Panamá": "Map of Pacífica Salud, Punta Pacífica, Panama",
+    "Mapa de Google de Pacífica Salud, Punta Pacífica, Panamá": "Google map of Pacífica Salud, Punta Pacífica, Panama",
+    "Mapa de Waze de Pacífica Salud, Punta Pacífica, Panamá": "Waze map of Pacífica Salud, Punta Pacífica, Panama",
+    "Diseño y desarrollo por Alejandro Admadé": "Design and development by Alejandro Admadé",
     "Contactar a HOPE Panamá por WhatsApp": "Contact HOPE Panama on WhatsApp"
   };
 
@@ -779,6 +1203,9 @@ setupReveal();
         if (language === "en" && attribute === "aria-label" && value.startsWith("Aseguradora asociada ")) {
           translated = value.replace("Aseguradora asociada ", "Insurance partner ");
         }
+        if (language === "en" && attribute === "aria-label" && value.startsWith("Visitar sitio oficial de ")) {
+          translated = value.replace("Visitar sitio oficial de ", "Visit the official website of ").replace("; se abre en una nueva pestaña", "; opens in a new tab");
+        }
         element.setAttribute(attribute, translated);
       });
     });
@@ -801,9 +1228,12 @@ setupReveal();
     translateAttributes(document.body, selected);
     document.title = selected === "en" ? (titles[originalTitle] || originalTitle.replace("Panamá", "Panama")) : originalTitle;
     updateSwitch(selected);
+    updateWhatsappLinks(selected);
     if (persist) {
       try { localStorage.setItem(STORAGE_KEY, selected); } catch (error) { /* El modo file:// puede restringir almacenamiento. */ }
     }
+    document.dispatchEvent(new CustomEvent("hope:languagechange", { detail: { language: selected } }));
+    cleanHeadingPunctuation();
   }
 
   document.querySelectorAll("[data-language]").forEach((button) => {

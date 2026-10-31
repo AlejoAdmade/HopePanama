@@ -1,8 +1,17 @@
-/* HOPE Panamá V3 — contenido editable del sitio.
+/* HOPE Panamá V6 — contenido editable del sitio.
    Los perfiles y credenciales médicas son demostrativos y deben sustituirse
    por información verificada antes de publicar. */
 
 window.HOPE_DATA = {
+  config: {
+    siteUrl: "https://alejoadmade.github.io/HopePanama/",
+    whatsappNumber: "5073863086",
+    ga4Id: "",
+    developerName: "Alejandro Admadé",
+    developerUrl: "https://github.com/AlejoAdmade",
+    googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=8.98202,-79.51026",
+    wazeUrl: "https://www.waze.com/es-419/live-map/directions/pa/provincia-de-panama/panama/pacifica-salud-hospital-punta-pacifica?to=place.ChIJo_VghhyprI8RwKxQZkhAD-A"
+  },
   doctors: [
     {
       id: "natalie-buitron",
@@ -259,12 +268,215 @@ window.HOPE_DATA = {
     }
   ],
 
+  conditions: [
+    {
+      id: "anemia",
+      number: "01",
+      category: "Hematología",
+      es: {
+        title: "Anemia",
+        summary: "Ocurre cuando la sangre no transporta suficiente oxígeno debido a una cantidad menor de glóbulos rojos sanos o hemoglobina.",
+        overview: "La anemia tiene distintos tipos y causas. Puede aparecer de forma repentina o progresiva y su tratamiento depende de identificar el origen y la gravedad.",
+        signs: ["Cansancio o debilidad persistente", "Falta de aire o mareos", "Dolor de cabeza o palidez", "Latidos irregulares o poca tolerancia al esfuerzo"],
+        evaluation: ["Historia clínica y examen físico", "Hemograma, hemoglobina y hematocrito", "Estudios adicionales según la causa sospechada"],
+        care: ["Clasificación del tipo de anemia", "Investigación de la causa", "Plan de tratamiento y seguimiento hematológico"],
+        meta: "Información sobre anemia, evaluación hematológica y acompañamiento especializado en HOPE Panamá."
+      },
+      en: {
+        title: "Anemia",
+        summary: "It occurs when the blood does not carry enough oxygen because there are fewer healthy red blood cells or less hemoglobin.",
+        overview: "Anemia has different types and causes. It may appear suddenly or gradually, and treatment depends on identifying its origin and severity.",
+        signs: ["Persistent tiredness or weakness", "Shortness of breath or dizziness", "Headache or pale skin", "Irregular heartbeat or reduced exercise tolerance"],
+        evaluation: ["Medical history and physical examination", "Complete blood count, hemoglobin, and hematocrit", "Additional studies based on the suspected cause"],
+        care: ["Classification of the type of anemia", "Investigation of the underlying cause", "Hematology treatment and follow-up plan"],
+        meta: "Information about anemia, hematology evaluation, and specialized support at HOPE Panama."
+      },
+      sourceUrl: "https://www.nhlbi.nih.gov/es/salud/anemia",
+      sourceName: "National Heart, Lung, and Blood Institute (NHLBI)"
+    },
+    {
+      id: "leucemia",
+      number: "02",
+      category: "Hemato-oncología",
+      es: {
+        title: "Leucemia",
+        summary: "Es un término amplio para cánceres de las células sanguíneas. El tipo depende de la célula afectada y de si evoluciona rápida o lentamente.",
+        overview: "Existen leucemias agudas y crónicas, con características y tratamientos diferentes. Un diagnóstico preciso del subtipo orienta las decisiones clínicas.",
+        signs: ["Fatiga o palidez", "Fiebre o infecciones frecuentes", "Moretones o sangrado con facilidad", "Dolor óseo, sudoración nocturna o pérdida de peso"],
+        evaluation: ["Hemograma y frotis de sangre periférica", "Aspirado o biopsia de médula ósea cuando se indica", "Citometría, genética y otros estudios del subtipo"],
+        care: ["Confirmación y clasificación diagnóstica", "Plan individual según el subtipo", "Seguimiento de respuesta y cuidados de soporte"],
+        meta: "Información educativa sobre leucemia, diagnóstico y atención hemato-oncológica en HOPE Panamá."
+      },
+      en: {
+        title: "Leukemia",
+        summary: "It is a broad term for cancers of blood cells. The type depends on the affected cell and whether it develops quickly or slowly.",
+        overview: "There are acute and chronic leukemias with different characteristics and treatments. Precise subtype diagnosis guides clinical decisions.",
+        signs: ["Fatigue or pale skin", "Fever or frequent infections", "Easy bruising or bleeding", "Bone pain, night sweats, or weight loss"],
+        evaluation: ["Complete blood count and peripheral blood smear", "Bone marrow aspiration or biopsy when indicated", "Flow cytometry, genetic, and subtype studies"],
+        care: ["Diagnostic confirmation and classification", "Individual plan based on the subtype", "Response monitoring and supportive care"],
+        meta: "Educational information about leukemia, diagnosis, and hematology-oncology care at HOPE Panama."
+      },
+      sourceUrl: "https://www.cancer.gov/types/leukemia",
+      sourceName: "National Cancer Institute (NCI)"
+    },
+    {
+      id: "linfoma",
+      number: "03",
+      category: "Hemato-oncología",
+      es: {
+        title: "Linfoma",
+        summary: "Es un grupo de cánceres que comienza en células del sistema linfático. Sus dos grandes categorías son Hodgkin y no Hodgkin.",
+        overview: "Los linfomas pueden crecer a ritmos distintos. La biopsia y la clasificación exacta son esenciales para seleccionar el tratamiento apropiado.",
+        signs: ["Ganglios aumentados de tamaño", "Fiebre sin causa conocida", "Sudoración nocturna intensa", "Pérdida de peso o cansancio persistente"],
+        evaluation: ["Examen clínico y pruebas de laboratorio", "Estudios de imágenes para extensión", "Biopsia para identificar el tipo de linfoma"],
+        care: ["Clasificación del subtipo y etapa", "Plan coordinado por hematología u oncología", "Seguimiento clínico y manejo de síntomas"],
+        meta: "Información sobre linfoma, evaluación, diagnóstico y atención especializada en HOPE Panamá."
+      },
+      en: {
+        title: "Lymphoma",
+        summary: "It is a group of cancers that begins in cells of the lymphatic system. Its two broad categories are Hodgkin and non-Hodgkin lymphoma.",
+        overview: "Lymphomas may grow at different rates. Biopsy and accurate classification are essential for selecting the appropriate treatment.",
+        signs: ["Enlarged lymph nodes", "Fever without a known cause", "Drenching night sweats", "Weight loss or persistent fatigue"],
+        evaluation: ["Clinical examination and laboratory testing", "Imaging studies to assess extent", "Biopsy to identify the type of lymphoma"],
+        care: ["Subtype and stage classification", "Plan coordinated by hematology or oncology", "Clinical follow-up and symptom management"],
+        meta: "Information about lymphoma, evaluation, diagnosis, and specialized care at HOPE Panama."
+      },
+      sourceUrl: "https://www.cancer.gov/types/lymphoma",
+      sourceName: "National Cancer Institute (NCI)"
+    },
+    {
+      id: "mieloma-multiple",
+      number: "04",
+      category: "Hemato-oncología",
+      es: {
+        title: "Mieloma múltiple",
+        summary: "Es una enfermedad de células plasmáticas anormales que puede afectar la médula ósea, los huesos, los riñones y la producción normal de sangre.",
+        overview: "La evaluación combina análisis de sangre y orina, imágenes y, con frecuencia, estudio de médula ósea para confirmar el diagnóstico y conocer su extensión.",
+        signs: ["Dolor óseo persistente", "Cansancio relacionado con anemia", "Infecciones repetidas", "Alteraciones renales o del calcio"],
+        evaluation: ["Pruebas de sangre y orina", "Estudios de imágenes", "Aspirado o biopsia de médula ósea"],
+        care: ["Evaluación integral de la enfermedad", "Tratamiento según condición clínica y riesgo", "Prevención y manejo de complicaciones"],
+        meta: "Información sobre mieloma múltiple y atención hemato-oncológica especializada en HOPE Panamá."
+      },
+      en: {
+        title: "Multiple myeloma",
+        summary: "It is a disease of abnormal plasma cells that may affect bone marrow, bones, kidneys, and normal blood cell production.",
+        overview: "Evaluation combines blood and urine tests, imaging, and often a bone marrow study to confirm the diagnosis and assess its extent.",
+        signs: ["Persistent bone pain", "Fatigue related to anemia", "Repeated infections", "Kidney or calcium abnormalities"],
+        evaluation: ["Blood and urine testing", "Imaging studies", "Bone marrow aspiration or biopsy"],
+        care: ["Comprehensive disease assessment", "Treatment based on clinical condition and risk", "Prevention and management of complications"],
+        meta: "Information about multiple myeloma and specialized hematology-oncology care at HOPE Panama."
+      },
+      sourceUrl: "https://www.cancer.gov/types/myeloma",
+      sourceName: "National Cancer Institute (NCI)"
+    },
+    {
+      id: "cancer-mama",
+      number: "05",
+      category: "Oncología",
+      es: {
+        title: "Cáncer de mama",
+        summary: "Se origina cuando células de la mama crecen de manera anormal. Existen distintos tipos y cada uno puede requerir un enfoque diferente.",
+        overview: "La evaluación integra examen clínico, imágenes y biopsia. El tipo, los biomarcadores y la etapa orientan las opciones de tratamiento.",
+        signs: ["Bulto nuevo en la mama o axila", "Cambios en tamaño, forma o piel", "Secreción o cambios del pezón", "Dolor o alteración persistente que requiere evaluación"],
+        evaluation: ["Evaluación clínica", "Mamografía, ultrasonido u otras imágenes", "Biopsia y estudio de biomarcadores"],
+        care: ["Revisión del diagnóstico y la etapa", "Coordinación de terapias sistémicas", "Seguimiento y atención de soporte"],
+        meta: "Información sobre cáncer de mama y valoración oncológica especializada en HOPE Panamá."
+      },
+      en: {
+        title: "Breast cancer",
+        summary: "It begins when breast cells grow abnormally. There are different types, and each may require a different approach.",
+        overview: "Evaluation combines clinical examination, imaging, and biopsy. Type, biomarkers, and stage guide treatment options.",
+        signs: ["A new lump in the breast or armpit", "Changes in breast size, shape, or skin", "Nipple discharge or changes", "Persistent pain or another change that requires evaluation"],
+        evaluation: ["Clinical evaluation", "Mammography, ultrasound, or other imaging", "Biopsy and biomarker testing"],
+        care: ["Review of diagnosis and stage", "Coordination of systemic therapies", "Follow-up and supportive care"],
+        meta: "Information about breast cancer and specialized oncology evaluation at HOPE Panama."
+      },
+      sourceUrl: "https://www.cancer.gov/types/breast",
+      sourceName: "National Cancer Institute (NCI)"
+    },
+    {
+      id: "cancer-pulmon",
+      number: "06",
+      category: "Oncología",
+      es: {
+        title: "Cáncer de pulmón",
+        summary: "Incluye dos tipos principales: cáncer de pulmón de células no pequeñas y de células pequeñas. También puede aparecer en personas que no fuman.",
+        overview: "El diagnóstico suele requerir imágenes y una muestra de tejido. Conocer el tipo, la etapa y los biomarcadores ayuda a definir el tratamiento.",
+        signs: ["Tos que no desaparece o empeora", "Sangre al toser", "Dolor en el pecho o falta de aire", "Pérdida de peso, ronquera o infecciones repetidas"],
+        evaluation: ["Historia clínica y evaluación física", "Imágenes del tórax", "Biopsia y estudios moleculares cuando corresponda"],
+        care: ["Clasificación del tipo y etapa", "Plan oncológico personalizado", "Manejo de síntomas y seguimiento"],
+        meta: "Información sobre cáncer de pulmón y atención oncológica especializada en HOPE Panamá."
+      },
+      en: {
+        title: "Lung cancer",
+        summary: "It includes two main types: non-small cell lung cancer and small cell lung cancer. It can also occur in people who do not smoke.",
+        overview: "Diagnosis usually requires imaging and a tissue sample. Knowing the type, stage, and biomarkers helps define treatment.",
+        signs: ["A cough that does not go away or worsens", "Coughing up blood", "Chest pain or shortness of breath", "Weight loss, hoarseness, or repeated infections"],
+        evaluation: ["Medical history and physical evaluation", "Chest imaging", "Biopsy and molecular studies when appropriate"],
+        care: ["Type and stage classification", "Personalized oncology plan", "Symptom management and follow-up"],
+        meta: "Information about lung cancer and specialized oncology care at HOPE Panama."
+      },
+      sourceUrl: "https://www.cancer.gov/espanol/tipos/pulmon",
+      sourceName: "National Cancer Institute (NCI)"
+    },
+    {
+      id: "cancer-prostata",
+      number: "07",
+      category: "Oncología",
+      es: {
+        title: "Cáncer de próstata",
+        summary: "Se forma en los tejidos de la próstata y con frecuencia crece lentamente. La evaluación debe considerar edad, antecedentes y hallazgos individuales.",
+        overview: "Un resultado alterado no confirma por sí solo cáncer. La valoración puede incluir PSA, examen clínico, imágenes y biopsia según cada caso.",
+        signs: ["Cambios en el flujo o la frecuencia urinaria", "Sangre en orina o semen", "Dolor persistente en espalda, cadera o pelvis", "Ausencia de síntomas en etapas iniciales"],
+        evaluation: ["Revisión de antecedentes y síntomas", "PSA y evaluación clínica cuando se indican", "Imágenes y biopsia si son necesarias"],
+        care: ["Interpretación individual del diagnóstico", "Discusión de vigilancia o tratamiento", "Seguimiento de respuesta y calidad de vida"],
+        meta: "Información sobre cáncer de próstata y valoración oncológica especializada en HOPE Panamá."
+      },
+      en: {
+        title: "Prostate cancer",
+        summary: "It forms in prostate tissue and often grows slowly. Evaluation should consider age, history, and individual findings.",
+        overview: "An abnormal result alone does not confirm cancer. Evaluation may include PSA, clinical examination, imaging, and biopsy depending on the case.",
+        signs: ["Changes in urinary flow or frequency", "Blood in urine or semen", "Persistent back, hip, or pelvic pain", "No symptoms in early stages"],
+        evaluation: ["Review of history and symptoms", "PSA and clinical evaluation when indicated", "Imaging and biopsy if needed"],
+        care: ["Individual interpretation of the diagnosis", "Discussion of surveillance or treatment", "Response and quality-of-life follow-up"],
+        meta: "Information about prostate cancer and specialized oncology evaluation at HOPE Panama."
+      },
+      sourceUrl: "https://www.cancer.gov/types/prostate",
+      sourceName: "National Cancer Institute (NCI)"
+    },
+    {
+      id: "cancer-colorrectal",
+      number: "08",
+      category: "Oncología",
+      es: {
+        title: "Cáncer colorrectal",
+        summary: "A menudo comienza como un crecimiento llamado pólipo en el colon o el recto. Detectar y retirar algunos pólipos puede prevenir la enfermedad.",
+        overview: "La evaluación puede incluir pruebas de heces, colonoscopia, biopsia e imágenes. La localización y la etapa influyen en el plan de atención.",
+        signs: ["Cambio persistente en el hábito intestinal", "Sangre en las heces", "Dolor o molestia abdominal", "Anemia, cansancio o pérdida de peso sin explicación"],
+        evaluation: ["Historia clínica y examen", "Colonoscopia y biopsia cuando se indican", "Imágenes y estudios de etapa"],
+        care: ["Revisión del diagnóstico y la etapa", "Coordinación del tratamiento oncológico", "Seguimiento y control de síntomas"],
+        meta: "Información sobre cáncer colorrectal y atención oncológica especializada en HOPE Panamá."
+      },
+      en: {
+        title: "Colorectal cancer",
+        summary: "It often begins as a growth called a polyp inside the colon or rectum. Finding and removing certain polyps may prevent the disease.",
+        overview: "Evaluation may include stool tests, colonoscopy, biopsy, and imaging. Location and stage influence the care plan.",
+        signs: ["A persistent change in bowel habits", "Blood in the stool", "Abdominal pain or discomfort", "Anemia, fatigue, or unexplained weight loss"],
+        evaluation: ["Medical history and examination", "Colonoscopy and biopsy when indicated", "Imaging and staging studies"],
+        care: ["Review of diagnosis and stage", "Coordination of oncology treatment", "Follow-up and symptom control"],
+        meta: "Information about colorectal cancer and specialized oncology care at HOPE Panama."
+      },
+      sourceUrl: "https://www.cancer.gov/types/colorectal",
+      sourceName: "National Cancer Institute (NCI)"
+    }
+  ],
+
   insurers: [
-    "images/insurer-3.png",
-    "images/insurer-4.png",
-    "images/insurer-5.png",
-    "images/insurer-6.png",
-    "images/insurer-7.png",
-    "images/insurer-8.png"
+    { name: "WorldWide Medical", image: "images/insurer-3.png", url: "https://wwmedicalassurance.com/" },
+    { name: "ASSA Compañía de Seguros", image: "images/insurer-4.png", url: "https://www.assanet.com/" },
+    { name: "Aseguradora Ancón", image: "images/insurer-5.png", url: "https://www.asegurancon.com/" },
+    { name: "Blue Cross and Blue Shield of Panama", image: "images/insurer-6.png", url: "https://www.bcbspma.com/" },
+    { name: "MAPFRE Panamá", image: "images/insurer-7.png", url: "https://www.mapfre.com.pa/" },
+    { name: "Pan-American Life Insurance de Panamá", image: "images/insurer-8.png", url: "https://www.palig.com/es/pa/home" }
   ]
 };
