@@ -1,4 +1,4 @@
-/* HOPE Panamá V7 — contenido editable del sitio.
+/* HOPE Panamá V8 — contenido editable del sitio.
    Los perfiles y credenciales médicas son demostrativos y deben sustituirse
    por información verificada antes de publicar. */
 
@@ -91,7 +91,7 @@ window.HOPE_DATA = {
     {
       id: "lidia-luna",
       name: "Mgter. Lidia Luna",
-      specialty: "Especialista en PsicoOncología",
+      specialty: "Especialista en Psicooncología",
       image: "images/doctor-6.png",
       position: "50% 20%",
       instagram: "https://www.instagram.com/",

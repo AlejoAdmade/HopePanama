@@ -1,4 +1,4 @@
-HOPE PANAMÁ — VERSIÓN 7 / SEO LOCAL 2026
+HOPE PANAMÁ — VERSIÓN 8 / SEO LOCAL 2026
 =========================================
 
 CÓMO ABRIRLO
@@ -10,6 +10,7 @@ ARCHIVOS PRINCIPALES
 - index.html: página principal.
 - oncologia-panama.html: página SEO local de oncología.
 - hematologia-panama.html: página SEO local de hematología.
+- psicooncologia-panama.html: página SEO local de psicooncología.
 - nosotros.html: información del centro.
 - equipo.html: directorio de especialistas.
 - doctor-*.html: perfiles individuales con URL y SEO propio.
@@ -55,11 +56,12 @@ Después de subir todos los archivos a GitHub Pages, registra la dirección
 https://alejoadmade.github.io/HopePanama/ en Google Search Console y envía:
 https://alejoadmade.github.io/HopePanama/sitemap.xml
 
-La V7 incluye páginas específicas para búsquedas como "oncología en Panamá",
-"hematología en Panamá", "oncólogos en Panamá" y "quimioterapia ambulatoria
-en Panamá". El posicionamiento depende también del perfil de empresa en
-Google, la autoridad del dominio, reseñas reales, enlaces y mantenimiento.
-Ninguna implementación puede garantizar una posición específica en Google.
+La V8 incluye páginas específicas para búsquedas como "oncología en Panamá",
+"hematología en Panamá", "psicooncología en Panamá", "oncólogos en Panamá" y
+"quimioterapia ambulatoria en Panamá". El posicionamiento depende también del
+perfil de empresa en Google, la autoridad del dominio, reseñas reales, enlaces
+y mantenimiento. Ninguna implementación puede garantizar una posición
+específica en Google.
 
 Antes de publicar, valida con HOPE:
 - nombres, especialidades, credenciales e idoneidad de cada profesional;
@@ -75,10 +77,12 @@ RENDIMIENTO
 Las páginas utilizan imágenes WebP optimizadas. Conserva los archivos .webp
 al subir la actualización; los PNG/JPG originales se mantienen como respaldo.
 
-VERSIÓN 7
+VERSIÓN 8
 - SEO local reforzado en títulos, descripciones, encabezados y enlaces internos.
 - Datos estructurados de clínica médica, ubicación, servicios, FAQ y migas.
-- Nuevas páginas de oncología y hematología con intención de búsqueda local.
-- Sitemap actualizado con 31 direcciones indexables.
+- Páginas de oncología, hematología y psicooncología con intención de búsqueda local.
+- Psicooncología incorporada como tercera especialidad principal en la portada.
+- Perfil de Mgter. Lidia Luna conectado con la nueva página de especialidad.
+- Sitemap actualizado con 32 direcciones indexables.
 - Experiencia bilingüe ampliada a las nuevas páginas.
 - Menú y pie actualizados para distribuir autoridad hacia las especialidades.

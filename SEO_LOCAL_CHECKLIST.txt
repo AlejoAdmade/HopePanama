@@ -1,10 +1,11 @@
 HOPE PANAMÁ — CHECKLIST DE SEO LOCAL
 ====================================
 
-IMPLEMENTADO EN LA V7
-- Página principal orientada a "oncología y hematología en Panamá".
+IMPLEMENTADO EN LA V8
+- Página principal orientada a oncología, hematología y psicooncología en Panamá.
 - Página dedicada: /oncologia-panama.html.
 - Página dedicada: /hematologia-panama.html.
+- Página dedicada: /psicooncologia-panama.html.
 - Títulos y descripciones locales para equipo, servicios y quimioterapia.
 - Enlaces internos desde inicio, menú y pie.
 - Datos estructurados MedicalClinic, MedicalWebPage, FAQ y BreadcrumbList.
@@ -20,7 +21,8 @@ ACCIONES EXTERNAS NECESARIAS
    Pacífica Salud, aseguradoras, directorios y redes sociales.
 3. Verificar el dominio en Google Search Console y enviar sitemap.xml.
 4. Solicitar indexación de inicio, oncologia-panama.html,
-   hematologia-panama.html, equipo.html y servicios.html.
+   hematologia-panama.html, psicooncologia-panama.html, equipo.html y
+   servicios.html.
 5. Completar categorías, horario, servicios, fotografías y enlace web en el
    perfil de Google.
 6. Obtener reseñas auténticas de pacientes sin incentivos y responderlas sin
@@ -44,7 +46,7 @@ DATOS QUE EL CLIENTE DEBE CONFIRMAR
 - Accesos a Google Business Profile, Search Console y Analytics.
 
 EXPECTATIVA CORRECTA
-La V7 deja una base técnica y editorial sólida. Google determina la posición
+La V8 deja una base técnica y editorial sólida. Google determina la posición
 según relevancia, distancia, prominencia, competencia y otras señales. No se
 puede prometer el primer lugar; el SEO local requiere publicación, validación,
 reputación y mantenimiento continuo.

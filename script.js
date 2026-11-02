@@ -1,4 +1,4 @@
-/* HOPE Panamá V7 — navegación, contenido dinámico e interacciones */
+/* HOPE Panamá V8 — navegación, contenido dinámico e interacciones */
 
 const {
   config = {},
@@ -52,7 +52,8 @@ function whatsappUrl(type = "general", label = "", language = currentLanguage())
 function updateWhatsappLinks(language = currentLanguage()) {
   const translatedLabels = {
     "consulta de oncología": "an oncology consultation",
-    "consulta de hematología": "a hematology consultation"
+    "consulta de hematología": "a hematology consultation",
+    "consulta de psicooncología": "a psycho-oncology consultation"
   };
   document.querySelectorAll("[data-whatsapp-context]").forEach((link) => {
     const originalLabel = link.dataset.whatsappLabel || "";
@@ -99,7 +100,7 @@ function injectLayout() {
             <a class="${page === "equipo" ? "active" : ""}" href="equipo.html">Equipo médico</a>
             <div class="nav-services">
               <button class="${page === "servicios" || page === "especialidad" ? "active" : ""}" id="servicesToggle" aria-expanded="false" aria-controls="megaMenu">Servicios <span>⌄</span></button>
-              <div class="mega-menu" id="megaMenu"><div class="mega-intro"><small>Atención integral</small><strong>Explora nuestros servicios especializados.</strong><a href="servicios.html">Ver todos</a><a class="mega-conditions-link" href="oncologia-panama.html">Oncología en Panamá</a><a class="mega-conditions-link" href="hematologia-panama.html">Hematología en Panamá</a><a class="mega-conditions-link" href="condiciones.html">Condiciones que tratamos</a></div><div class="mega-links">${serviceLinks()}</div></div>
+              <div class="mega-menu" id="megaMenu"><div class="mega-intro"><small>Atención integral</small><strong>Explora nuestros servicios especializados.</strong><a href="servicios.html">Ver todos</a><a class="mega-conditions-link" href="oncologia-panama.html">Oncología en Panamá</a><a class="mega-conditions-link" href="hematologia-panama.html">Hematología en Panamá</a><a class="mega-conditions-link" href="psicooncologia-panama.html">Psicooncología en Panamá</a><a class="mega-conditions-link" href="condiciones.html">Condiciones que tratamos</a></div><div class="mega-links">${serviceLinks()}</div></div>
             </div>
             <a class="${page === "condiciones" ? "active" : ""}" href="condiciones.html">Condiciones</a>
             <a href="index.html#aseguradoras">Aseguradoras</a>
@@ -118,7 +119,7 @@ function injectLayout() {
       <footer class="footer">
         <div class="shell footer-top">
           <div class="footer-main"><img src="images/logo.png" alt="HOPE Panamá"><p>Centro de Hematología Oncología de Panamá Especializada.</p><a href="https://www.instagram.com/hope_puntapacifica/" target="_blank" rel="noopener">@hope_puntapacifica</a></div>
-          <div><small>Navegación</small><a href="nosotros.html">Quiénes somos</a><a href="equipo.html">Equipo médico</a><a href="oncologia-panama.html">Oncología en Panamá</a><a href="hematologia-panama.html">Hematología en Panamá</a><a href="servicios.html">Servicios</a><a href="condiciones.html">Condiciones que tratamos</a><a href="contacto.html">Contacto</a></div>
+          <div><small>Navegación</small><a href="nosotros.html">Quiénes somos</a><a href="equipo.html">Equipo médico</a><a href="oncologia-panama.html">Oncología en Panamá</a><a href="hematologia-panama.html">Hematología en Panamá</a><a href="psicooncologia-panama.html">Psicooncología en Panamá</a><a href="servicios.html">Servicios</a><a href="condiciones.html">Condiciones que tratamos</a><a href="contacto.html">Contacto</a></div>
           <div><small>Servicios</small><a href="${serviceFile("consulta-externa")}">Consulta externa</a><a href="${serviceFile("quimioterapia-ambulatoria")}">Quimioterapia ambulatoria</a><a href="${serviceFile("aspirado-medula")}">Aspirado de médula</a><a href="${serviceFile("psicooncologia")}">Psicooncología</a></div>
           <div><small>Contacto</small><p>Pacífica Salud, Piso 8<br>Punta Pacífica, Panamá</p><a class="phone-link" href="tel:+5073863086" data-track="phone_click" data-track-label="footer">386-3086 / 386-3588</a><a href="mailto:atclientes@hopepanama.com" data-track="email_click">atclientes@hopepanama.com</a><a href="privacidad.html">Política de privacidad</a></div>
         </div>
@@ -229,6 +230,8 @@ function renderGrids() {
       selectedDoctors = doctors.filter((doctor) => /^oncólog[oa]$/i.test(doctor.specialty));
     } else if (specialtyGroup === "hematology") {
       selectedDoctors = doctors.filter((doctor) => /^hematólog[oa]$/i.test(doctor.specialty));
+    } else if (specialtyGroup === "psychooncology") {
+      selectedDoctors = doctors.filter((doctor) => /psicooncolog/i.test(doctor.specialty));
     }
     grid.innerHTML = selectedDoctors.slice(0, limit).map(doctorCard).join("");
   });
@@ -302,13 +305,19 @@ function renderDoctorDetail() {
   const doctor = doctors.find((item) => item.id === id) || doctors[0];
   const others = doctors.filter((item) => item.id !== doctor.id).slice(0, 3);
   const canonical = `${SITE_URL}${doctorFile(doctor.id)}`;
-  updatePageSeo({
-    title: `${doctor.name} | HOPE Panamá`,
-    description: `Conoce el perfil de ${doctor.name}, ${doctor.specialty.toLowerCase()}, y solicita una cita en HOPE Panamá.`,
-    url: canonical,
-    image: `${SITE_URL}${doctor.image}`,
-    type: "profile",
-    schema: {
+  const professionalSchema = doctor.id === "lidia-luna"
+    ? {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: doctor.name,
+      image: `${SITE_URL}${doctor.image}`,
+      description: doctor.intro,
+      jobTitle: doctor.specialty,
+      url: canonical,
+      worksFor: { "@type": "MedicalClinic", name: "HOPE Panamá", url: SITE_URL },
+      sameAs: doctor.instagram && doctor.instagram !== "https://www.instagram.com/" ? [doctor.instagram] : []
+    }
+    : {
       "@context": "https://schema.org",
       "@type": "Physician",
       name: doctor.name,
@@ -318,7 +327,14 @@ function renderDoctorDetail() {
       url: canonical,
       worksFor: { "@type": "MedicalClinic", name: "HOPE Panamá", url: SITE_URL },
       sameAs: doctor.instagram && doctor.instagram !== "https://www.instagram.com/" ? [doctor.instagram] : []
-    }
+    };
+  updatePageSeo({
+    title: `${doctor.name} | HOPE Panamá`,
+    description: `Conoce el perfil de ${doctor.name}, ${doctor.specialty.toLowerCase()}, y solicita una cita en HOPE Panamá.`,
+    url: canonical,
+    image: `${SITE_URL}${doctor.image}`,
+    type: "profile",
+    schema: professionalSchema
   });
   target.innerHTML = `
     <section class="profile-hero">
@@ -329,7 +345,7 @@ function renderDoctorDetail() {
       </div>
     </section>
     <section class="profile-content section-space"><div class="shell profile-content-grid">
-      <article data-reveal><p class="kicker"><span></span> Sobre el especialista</p><h2>Atención rigurosa, explicada con claridad.</h2><p>${doctor.bio}</p><blockquote>“${doctor.quote}”</blockquote></article>
+      <article data-reveal><p class="kicker"><span></span> Sobre el especialista</p><h2>Atención rigurosa, explicada con claridad.</h2><p>${doctor.bio}</p>${doctor.id === "lidia-luna" ? '<a class="text-link" href="psicooncologia-panama.html">Conocer la atención psicooncológica</a>' : ""}<blockquote>“<span>${doctor.quote}</span>”</blockquote></article>
       <aside class="expertise-card" data-reveal><small>Áreas de atención</small><h3>Enfoque clínico</h3><ul>${doctor.areas.map((area) => `<li><span>✓</span>${area}</li>`).join("")}</ul><div class="language"><span>Idiomas</span><strong>${doctor.languages}</strong></div></aside>
     </div></section>
     <section class="credentials section-space soft-section"><div class="shell credentials-grid"><div data-reveal><p class="kicker"><span></span> Trayectoria</p><h2>Formación y actualización profesional.</h2><p class="demo-note">Los siguientes datos son de demostración y deben reemplazarse por credenciales verificadas.</p></div><ol data-reveal>${doctor.education.map((item, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><p>${item}</p></li>`).join("")}</ol></div></section>
@@ -610,6 +626,7 @@ document.addEventListener("hope:languagechange", (event) => {
     "Contacto": "Contact",
     "Agendar cita": "Schedule",
     "Agendar una cita": "Schedule an appointment",
+    "Llamar al centro": "Call the center",
     "Menú": "Menu",
     "Atención integral": "Comprehensive care",
     "Explora nuestros servicios especializados.": "Explore our specialized services.",
@@ -715,6 +732,7 @@ document.addEventListener("hope:languagechange", (event) => {
     "Conversa con nuestro equipo de hematología": "Talk with our hematology team",
     "Podemos orientarte sobre disponibilidad, estudios y requisitos para la consulta.": "We can guide you regarding availability, tests, and consultation requirements.",
     "Agendar una consulta": "Schedule a consultation",
+    "Agenda una consulta": "Schedule a consultation",
     "← Inicio": "← Home",
     "Cáncer de mama": "Breast cancer",
     "Cáncer de pulmón": "Lung cancer",
@@ -744,6 +762,63 @@ document.addEventListener("hope:languagechange", (event) => {
     "Una consulta puede ser indicada ante alteraciones persistentes en el hemograma, anemia, problemas de coagulación, ganglios aumentados u otros hallazgos que requieran evaluación especializada.": "A consultation may be indicated for persistent blood count abnormalities, anemia, coagulation problems, enlarged lymph nodes, or other findings that require specialized evaluation.",
     "¿Debo llevar mis laboratorios anteriores?": "Should I bring my previous laboratory results?",
     "Sí. Llevar hemogramas, estudios, informes, imágenes y una lista de medicamentos ayuda al especialista a revisar la evolución del caso.": "Yes. Bringing blood counts, tests, reports, imaging, and a medication list helps the specialist review how the case has evolved.",
+
+    /* Psicooncología */
+    "Oncología, hematología y psicooncología en Panamá": "Oncology, hematology, and psycho-oncology in Panama",
+    "Integramos atención médica especializada y acompañamiento emocional para pacientes, familiares y cuidadores.": "We combine specialized medical care with emotional support for patients, families, and caregivers.",
+    "Acompañamiento especializado": "Specialized support",
+    "Psicooncología en Panamá": "Psycho-oncology in Panama",
+    "Apoyo emocional para pacientes, familiares y cuidadores durante el diagnóstico, tratamiento y recuperación.": "Emotional support for patients, families, and caregivers during diagnosis, treatment, and recovery.",
+    "Conocer la atención psicooncológica": "Explore psycho-oncology care",
+    "Psicooncología · Panamá": "Psycho-oncology · Panama",
+    "Acompañamiento emocional especializado para pacientes, familiares y cuidadores durante el diagnóstico, tratamiento, recuperación y seguimiento oncológico.": "Specialized emotional support for patients, families, and caregivers during cancer diagnosis, treatment, recovery, and follow-up.",
+    "Agendar una consulta de psicooncología": "Schedule a psycho-oncology consultation",
+    "Acompañamiento integral": "Comprehensive support",
+    "Cuidar las emociones también forma parte del tratamiento": "Caring for emotional well-being is also part of treatment",
+    "Un diagnóstico oncológico puede generar ansiedad, temor, cambios en la dinámica familiar y dificultades para adaptarse a nuevas rutinas. La psicooncología ofrece un espacio profesional para comprender y trabajar esas necesidades.": "A cancer diagnosis may cause anxiety, fear, changes in family dynamics, and difficulty adapting to new routines. Psycho-oncology offers a professional space to understand and address these needs.",
+    "En HOPE Panamá, el acompañamiento puede incluir herramientas para manejar el estrés, fortalecer la comunicación, preparar conversaciones importantes y apoyar tanto al paciente como a su red cercana.": "At HOPE Panama, support may include tools to manage stress, strengthen communication, prepare for important conversations, and support both patients and those close to them.",
+    "este contenido es educativo y no reemplaza una valoración o indicación profesional individual.": "this content is educational and does not replace an individual professional evaluation or recommendation.",
+    "Apoyo para cada etapa del proceso oncológico": "Support for every stage of the cancer journey",
+    "El acompañamiento se adapta a las necesidades, el momento clínico y la realidad de cada persona y familia.": "Support is adapted to each person and family's needs, clinical stage, and circumstances.",
+    "Apoyo para pacientes": "Support for patients",
+    "Herramientas para ansiedad, temor, cambios emocionales y adaptación al tratamiento.": "Tools for anxiety, fear, emotional changes, and adjustment to treatment.",
+    "Orientación para familias": "Guidance for families",
+    "Apoyo para la comunicación, la organización del cuidado y el manejo de cambios familiares.": "Support for communication, organizing care, and managing family changes.",
+    "Seguimiento emocional": "Emotional follow-up",
+    "Acompañamiento durante el tratamiento, la recuperación y las etapas de seguimiento.": "Support during treatment, recovery, and follow-up stages.",
+    "Atención relacionada": "Related care",
+    "Un enfoque conectado con el cuidado médico": "An approach connected with medical care",
+    "La psicooncología complementa la atención clínica y puede integrarse a distintas etapas de la ruta del paciente.": "Psycho-oncology complements clinical care and can be integrated into different stages of the patient journey.",
+    "Consulta enfocada en las necesidades emocionales de pacientes y familias.": "A consultation focused on the emotional needs of patients and families.",
+    "Valoración médica, segunda opinión y seguimiento especializado.": "Medical evaluation, second opinion, and specialized follow-up.",
+    "Tratamientos administrados en un entorno controlado y acompañado.": "Treatments administered in a controlled, supportive environment.",
+    "Especialista": "Specialist",
+    "Conoce su enfoque de acompañamiento para pacientes, familiares y cuidadores durante el proceso oncológico.": "Learn about her support approach for patients, families, and caregivers throughout the cancer journey.",
+    "Ver perfil profesional": "View professional profile",
+    "Motivos de consulta": "Reasons to seek support",
+    "Situaciones en las que podemos acompañarte": "Situations in which we can support you",
+    "Solicitar apoyo emocional es válido en cualquier etapa y no requiere esperar a sentirse sobrepasado.": "Seeking emotional support is valid at any stage; you do not need to wait until you feel overwhelmed.",
+    "Adaptación": "Adjustment",
+    "Ansiedad y temor": "Anxiety and fear",
+    "Herramientas para afrontar la incertidumbre, los estudios y el inicio del tratamiento.": "Tools to cope with uncertainty, tests, and the beginning of treatment.",
+    "Comunicación": "Communication",
+    "Entorno familiar": "Family environment",
+    "Orientación para conversar sobre el diagnóstico, las necesidades y los cambios cotidianos.": "Guidance for discussing the diagnosis, needs, and everyday changes.",
+    "Imagen y autoestima": "Body image and self-esteem",
+    "Apoyo ante cambios físicos, emocionales y sociales relacionados con el proceso.": "Support for physical, emotional, and social changes related to the process.",
+    "Cuidadores": "Caregivers",
+    "Red de apoyo": "Support network",
+    "Recursos para familiares y cuidadores que también atraviesan exigencias emocionales.": "Resources for family members and caregivers who also face emotional demands.",
+    "Antes de una consulta de psicooncología": "Before a psycho-oncology consultation",
+    "No necesitas una preparación especial. Puedes anotar las situaciones, emociones o preguntas que deseas conversar.": "No special preparation is required. You may write down the situations, emotions, or questions you would like to discuss.",
+    "¿Qué es la psicooncología?": "What is psycho-oncology?",
+    "Es un área de acompañamiento que atiende las necesidades emocionales y psicológicas relacionadas con el proceso oncológico.": "It is an area of support that addresses emotional and psychological needs related to the cancer journey.",
+    "¿La atención es únicamente para pacientes?": "Is care only for patients?",
+    "No. Familiares y cuidadores también pueden recibir orientación y apoyo según sus necesidades.": "No. Family members and caregivers can also receive guidance and support according to their needs.",
+    "¿Cuándo conviene solicitar acompañamiento?": "When is it helpful to seek support?",
+    "En cualquier etapa: diagnóstico, tratamiento, recaída, recuperación, seguimiento o adaptación posterior.": "At any stage: diagnosis, treatment, recurrence, recovery, follow-up, or later adjustment.",
+    "Conversa con nuestro equipo de psicooncología": "Talk with our psycho-oncology team",
+    "Podemos orientarte sobre disponibilidad y ayudarte a coordinar la atención adecuada.": "We can guide you regarding availability and help coordinate the appropriate care.",
 
     /* Condiciones */
     "Información clara para dar el siguiente paso.": "Clear information to help you take the next step.",
@@ -1009,7 +1084,7 @@ document.addEventListener("hope:languagechange", (event) => {
     "Hematóloga": "Hematologist",
     "Hematólogo": "Hematologist",
     "Oncólogo": "Oncologist",
-    "Especialista en PsicoOncología": "Psycho-Oncology Specialist",
+    "Especialista en Psicooncología": "Psycho-Oncology Specialist",
     "Español · Inglés": "Spanish · English",
     "12+ años": "12+ years",
     "14+ años": "14+ years",
@@ -1252,7 +1327,8 @@ document.addEventListener("hope:languagechange", (event) => {
     "Centro de Oncología y Hematología en Panamá | HOPE": "Oncology and Hematology Center in Panama | HOPE",
     "Oncología en Panamá | Atención Especializada | HOPE": "Oncology in Panama | Specialized Care | HOPE",
     "Hematología en Panamá | Atención Especializada | HOPE": "Hematology in Panama | Specialized Care | HOPE",
-    "Oncólogos y Hematólogos en Panamá | Equipo HOPE": "Oncologists and Hematologists in Panama | HOPE Team",
+    "Psicooncología en Panamá | Apoyo Emocional | HOPE": "Psycho-Oncology in Panama | Emotional Support | HOPE",
+    "Oncología, Hematología y Psicooncología | Equipo HOPE": "Oncology, Hematology and Psycho-Oncology | HOPE Team",
     "Servicios de Oncología y Hematología en Panamá | HOPE": "Oncology and Hematology Services in Panama | HOPE",
     "Quimioterapia Ambulatoria en Panamá | HOPE": "Outpatient Chemotherapy in Panama | HOPE",
     "Equipo médico | HOPE Panamá": "Medical Team | HOPE Panama",

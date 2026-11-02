@@ -21,13 +21,16 @@ HOPE PANAMÁ — FUNCIONALIDADES Y VALOR COMERCIAL
 - Directorio de especialistas y perfiles individuales.
 - Catálogo de servicios y páginas individuales por servicio.
 - Directorio educativo de condiciones y páginas individuales.
-- Páginas dedicadas a oncología y hematología en Panamá.
+- Páginas dedicadas a oncología, hematología y psicooncología en Panamá.
+- Psicooncología destacada como especialidad principal y conectada con el
+  perfil profesional de Mgter. Lidia Luna.
 - Preguntas frecuentes, preparación, proceso de atención y avisos médicos.
 
 4. POSICIONAMIENTO EN BUSCADORES
 - Arquitectura SEO con URLs limpias e indexables.
 - Títulos, descripciones, encabezados y enlaces internos optimizados.
-- SEO local para oncología, hematología, especialistas y quimioterapia.
+- SEO local para oncología, hematología, psicooncología, especialistas y
+  quimioterapia.
 - sitemap.xml, robots.txt y etiquetas canónicas.
 - Datos estructurados de clínica médica, ubicación, servicios, preguntas y
   navegación jerárquica.
@@ -62,7 +65,7 @@ HOPE PANAMÁ — FUNCIONALIDADES Y VALOR COMERCIAL
 - Guía de instalación, checklist SEO y documentación de datos a validar.
 
 ENTREGABLE
-Un sitio web institucional y comercial con 31 URLs indexables, listo para
+Un sitio web institucional y comercial con 32 URLs indexables, listo para
 publicación, optimizado para captar pacientes y preparado para una estrategia
 de SEO local. La publicación, accesos a cuentas de Google, validación clínica y
 mantenimiento de posicionamiento se coordinan con el cliente.

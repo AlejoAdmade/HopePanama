@@ -1,4 +1,4 @@
-/* HOPE Panamá V7 — dirección visual clínica editorial */
+/* HOPE Panamá V8 — dirección visual clínica editorial */
 :root {
   --navy: #061d27;
   --navy-2: #0b2b35;
@@ -155,20 +155,24 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
 
 /* SEO specialties */
 .seo-specialties { background: linear-gradient(180deg,#f7f9f7,var(--paper)); }
-.seo-specialty-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.seo-specialty-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
 .seo-specialty-card { position: relative; min-height: 390px; padding: clamp(32px,4vw,52px); border: 1px solid var(--line); border-radius: 34px; display: flex; flex-direction: column; overflow: hidden; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
 .seo-specialty-card::after { content: ""; position: absolute; right: -110px; bottom: -115px; width: 280px; height: 280px; border: 1px solid currentColor; border-radius: 50%; opacity: .12; box-shadow: 0 0 0 48px currentColor; }
 .seo-specialty-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
 .seo-specialty-card.oncology { color: var(--white); background: var(--navy); }
 .seo-specialty-card.hematology { color: var(--ink); background: var(--white); }
+.seo-specialty-card.psychooncology { color: var(--white); background: linear-gradient(145deg,#137f79,#0d5757); }
 .seo-specialty-card > span { color: var(--gold); font-family: var(--display); font-size: 1.45rem; }
 .seo-specialty-card small { margin-top: auto; padding-top: 72px; color: var(--teal); font-size: .69rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
 .seo-specialty-card.oncology small { color: var(--aqua); }
-.seo-specialty-card h3 { max-width: 520px; margin: 12px 0 16px; font-size: clamp(2.3rem,4vw,4.1rem); line-height: .98; }
+.seo-specialty-card.psychooncology small { color: var(--gold-2); }
+.seo-specialty-card h3 { max-width: 520px; margin: 12px 0 16px; font-size: clamp(2.05rem,3vw,3.25rem); line-height: .98; }
 .seo-specialty-card p { max-width: 580px; margin: 0; color: var(--muted); line-height: 1.8; }
 .seo-specialty-card.oncology p { color: #b8c8cb; }
+.seo-specialty-card.psychooncology p { color: #d3e5e3; }
 .seo-specialty-card b { position: relative; z-index: 1; margin-top: 30px; color: #a9854e; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; }
 .seo-specialty-card.oncology b { color: var(--gold-2); }
+.seo-specialty-card.psychooncology b { color: var(--gold-2); }
 
 /* Specialty SEO landing pages */
 .specialty-landing-hero { position: relative; overflow: hidden; color: var(--white); background: linear-gradient(120deg,var(--navy),#0c3740); }
@@ -537,6 +541,8 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
   .hero-intro, .inner-hero-grid, .split-heading { grid-template-columns: 1fr; gap: 35px; }
   .hero-summary { max-width: 720px; }
   .service-grid { grid-template-columns: repeat(2,1fr); }
+  .seo-specialty-grid { grid-template-columns: repeat(2,1fr); }
+  .seo-specialty-card.psychooncology { grid-column: 1 / -1; }
   .specialty-feature-grid { grid-template-columns: repeat(2,1fr); }
   .condition-grid, .full-condition-grid { grid-template-columns: repeat(2,1fr); }
   .doctor-grid { grid-template-columns: repeat(2,1fr); gap: 40px 18px; }
@@ -553,6 +559,8 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
 
 @media (max-width: 850px) {
   .section-space { padding-block: 88px; }
+  .seo-specialty-grid { grid-template-columns: 1fr; }
+  .seo-specialty-card.psychooncology { grid-column: auto; }
   .hero-intro { margin-bottom: 38px; }
   .hero-panorama { border-radius: 70px 18px 70px 18px; }
   .panorama-chip { left: 14px; bottom: 12px; }
