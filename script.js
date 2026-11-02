@@ -1,4 +1,4 @@
-/* HOPE Panamá V6 — navegación, contenido dinámico e interacciones */
+/* HOPE Panamá V7 — navegación, contenido dinámico e interacciones */
 
 const {
   config = {},
@@ -50,8 +50,14 @@ function whatsappUrl(type = "general", label = "", language = currentLanguage())
 }
 
 function updateWhatsappLinks(language = currentLanguage()) {
+  const translatedLabels = {
+    "consulta de oncología": "an oncology consultation",
+    "consulta de hematología": "a hematology consultation"
+  };
   document.querySelectorAll("[data-whatsapp-context]").forEach((link) => {
-    link.href = whatsappUrl(link.dataset.whatsappContext, link.dataset.whatsappLabel || "", language);
+    const originalLabel = link.dataset.whatsappLabel || "";
+    const label = language === "en" ? (translatedLabels[originalLabel] || originalLabel) : originalLabel;
+    link.href = whatsappUrl(link.dataset.whatsappContext, label, language);
   });
 }
 
@@ -92,8 +98,8 @@ function injectLayout() {
             <a class="${page === "nosotros" ? "active" : ""}" href="nosotros.html">Quiénes somos</a>
             <a class="${page === "equipo" ? "active" : ""}" href="equipo.html">Equipo médico</a>
             <div class="nav-services">
-              <button class="${page === "servicios" ? "active" : ""}" id="servicesToggle" aria-expanded="false" aria-controls="megaMenu">Servicios <span>⌄</span></button>
-              <div class="mega-menu" id="megaMenu"><div class="mega-intro"><small>Atención integral</small><strong>Explora nuestros servicios especializados.</strong><a href="servicios.html">Ver todos</a><a class="mega-conditions-link" href="condiciones.html">Condiciones que tratamos</a></div><div class="mega-links">${serviceLinks()}</div></div>
+              <button class="${page === "servicios" || page === "especialidad" ? "active" : ""}" id="servicesToggle" aria-expanded="false" aria-controls="megaMenu">Servicios <span>⌄</span></button>
+              <div class="mega-menu" id="megaMenu"><div class="mega-intro"><small>Atención integral</small><strong>Explora nuestros servicios especializados.</strong><a href="servicios.html">Ver todos</a><a class="mega-conditions-link" href="oncologia-panama.html">Oncología en Panamá</a><a class="mega-conditions-link" href="hematologia-panama.html">Hematología en Panamá</a><a class="mega-conditions-link" href="condiciones.html">Condiciones que tratamos</a></div><div class="mega-links">${serviceLinks()}</div></div>
             </div>
             <a class="${page === "condiciones" ? "active" : ""}" href="condiciones.html">Condiciones</a>
             <a href="index.html#aseguradoras">Aseguradoras</a>
@@ -112,7 +118,7 @@ function injectLayout() {
       <footer class="footer">
         <div class="shell footer-top">
           <div class="footer-main"><img src="images/logo.png" alt="HOPE Panamá"><p>Centro de Hematología Oncología de Panamá Especializada.</p><a href="https://www.instagram.com/hope_puntapacifica/" target="_blank" rel="noopener">@hope_puntapacifica</a></div>
-          <div><small>Navegación</small><a href="nosotros.html">Quiénes somos</a><a href="equipo.html">Equipo médico</a><a href="servicios.html">Servicios</a><a href="condiciones.html">Condiciones que tratamos</a><a href="contacto.html">Contacto</a></div>
+          <div><small>Navegación</small><a href="nosotros.html">Quiénes somos</a><a href="equipo.html">Equipo médico</a><a href="oncologia-panama.html">Oncología en Panamá</a><a href="hematologia-panama.html">Hematología en Panamá</a><a href="servicios.html">Servicios</a><a href="condiciones.html">Condiciones que tratamos</a><a href="contacto.html">Contacto</a></div>
           <div><small>Servicios</small><a href="${serviceFile("consulta-externa")}">Consulta externa</a><a href="${serviceFile("quimioterapia-ambulatoria")}">Quimioterapia ambulatoria</a><a href="${serviceFile("aspirado-medula")}">Aspirado de médula</a><a href="${serviceFile("psicooncologia")}">Psicooncología</a></div>
           <div><small>Contacto</small><p>Pacífica Salud, Piso 8<br>Punta Pacífica, Panamá</p><a class="phone-link" href="tel:+5073863086" data-track="phone_click" data-track-label="footer">386-3086 / 386-3588</a><a href="mailto:atclientes@hopepanama.com" data-track="email_click">atclientes@hopepanama.com</a><a href="privacidad.html">Política de privacidad</a></div>
         </div>
@@ -217,7 +223,14 @@ function conditionCard(condition) {
 function renderGrids() {
   document.querySelectorAll("[data-doctor-grid]").forEach((grid) => {
     const limit = Number(grid.dataset.limit || doctors.length);
-    grid.innerHTML = doctors.slice(0, limit).map(doctorCard).join("");
+    const specialtyGroup = grid.dataset.specialtyGroup;
+    let selectedDoctors = doctors;
+    if (specialtyGroup === "oncology") {
+      selectedDoctors = doctors.filter((doctor) => /^oncólog[oa]$/i.test(doctor.specialty));
+    } else if (specialtyGroup === "hematology") {
+      selectedDoctors = doctors.filter((doctor) => /^hematólog[oa]$/i.test(doctor.specialty));
+    }
+    grid.innerHTML = selectedDoctors.slice(0, limit).map(doctorCard).join("");
   });
 
   document.querySelectorAll("[data-service-grid]").forEach((grid) => {
@@ -624,6 +637,113 @@ document.addEventListener("hope:languagechange", (event) => {
     "Hematología": "Hematology",
     "Oncología": "Oncology",
     "Hemato-oncología": "Hematology-oncology",
+
+    /* SEO local y páginas de especialidad */
+    "Centro médico especializado · Panamá": "Specialized medical center · Panama",
+    "Centro de oncología y hematología en Panamá": "Oncology and hematology center in Panama",
+    "Ciencia que cuida": "Science that cares",
+    "Humanidad que acompaña": "Humanity that stands by you",
+    "Especialidades principales": "Main specialties",
+    "Atención oncológica y hematológica en Panamá": "Oncology and hematology care in Panama",
+    "Conoce cómo nuestro equipo evalúa, trata y acompaña distintas condiciones de la sangre y enfermedades oncológicas.": "Learn how our team evaluates, treats, and supports people with blood disorders and oncologic diseases.",
+    "Especialidad médica": "Medical specialty",
+    "Oncología en Panamá": "Oncology in Panama",
+    "Hematología en Panamá": "Hematology in Panama",
+    "Evaluación, segunda opinión, planificación de tratamientos y seguimiento oncológico coordinado.": "Evaluation, second opinions, treatment planning, and coordinated oncology follow-up.",
+    "Valoración especializada de anemias, alteraciones sanguíneas y enfermedades de la médula ósea.": "Specialized evaluation of anemia, blood abnormalities, and bone marrow disorders.",
+    "Conocer la atención oncológica": "Explore oncology care",
+    "Conocer la atención hematológica": "Explore hematology care",
+    "Oncología médica · Panamá": "Medical oncology · Panama",
+    "Hematología · Panamá": "Hematology · Panama",
+    "Evaluación especializada, segunda opinión, planificación de tratamientos y seguimiento coordinado durante cada etapa de la atención oncológica.": "Specialized evaluation, second opinions, treatment planning, and coordinated follow-up throughout every stage of oncology care.",
+    "Evaluación especializada de anemias, alteraciones sanguíneas, coagulación, médula ósea y enfermedades hematológicas.": "Specialized evaluation of anemia, blood abnormalities, coagulation, bone marrow, and hematologic diseases.",
+    "Agendar una consulta de oncología": "Schedule an oncology consultation",
+    "Agendar una consulta de hematología": "Schedule a hematology consultation",
+    "Atención especializada": "Specialized care",
+    "Una ruta oncológica clara y personalizada": "A clear and personalized oncology care path",
+    "Comprender los resultados para definir el siguiente paso": "Understanding the results to define the next step",
+    "En HOPE Panamá, la atención oncológica comienza con una revisión organizada de antecedentes, estudios y necesidades individuales. El objetivo es explicar el caso con claridad y definir los siguientes pasos junto al paciente.": "At HOPE Panama, oncology care begins with an organized review of medical history, tests, and individual needs. The goal is to explain the case clearly and define the next steps together with the patient.",
+    "La ruta puede incluir estudios adicionales, tratamiento ambulatorio, coordinación con otras especialidades y controles posteriores, según la indicación médica.": "The care path may include additional tests, outpatient treatment, coordination with other specialties, and follow-up appointments, as medically indicated.",
+    "La consulta de hematología integra la historia clínica, los síntomas y la interpretación de laboratorios para estudiar alteraciones de la sangre y de la médula ósea.": "A hematology consultation combines medical history, symptoms, and laboratory interpretation to evaluate blood and bone marrow abnormalities.",
+    "Según el caso, el especialista puede solicitar estudios adicionales, procedimientos diagnósticos o seguimiento periódico para comprender la causa y orientar el tratamiento.": "Depending on the case, the specialist may request additional tests, diagnostic procedures, or periodic follow-up to understand the cause and guide treatment.",
+    "Información para pacientes:": "Information for patients:",
+    "este contenido es educativo y no reemplaza una valoración, diagnóstico o indicación médica individual.": "this content is educational and does not replace an individual medical evaluation, diagnosis, or recommendation.",
+    "Cómo podemos ayudarte": "How we can help",
+    "Atención coordinada en cada etapa": "Coordinated care at every stage",
+    "Evaluación hematológica organizada y comprensible": "Organized and understandable hematology evaluation",
+    "El plan se adapta al diagnóstico, los estudios disponibles y las necesidades de cada persona.": "The plan is adapted to the diagnosis, available tests, and each person's needs.",
+    "La atención se adapta a los hallazgos, antecedentes y necesidades de cada paciente.": "Care is adapted to each patient's findings, history, and needs.",
+    "Evaluación y segunda opinión": "Evaluation and second opinion",
+    "Revisión de historia clínica, imágenes, laboratorios, biopsias y tratamientos previos.": "Review of medical history, imaging, laboratory tests, biopsies, and prior treatments.",
+    "Planificación del tratamiento": "Treatment planning",
+    "Explicación de alternativas y coordinación de terapias sistémicas cuando existe indicación.": "Explanation of alternatives and coordination of systemic therapies when indicated.",
+    "Seguimiento y soporte": "Follow-up and support",
+    "Controles médicos, manejo de síntomas y acompañamiento durante y después del tratamiento.": "Medical follow-up, symptom management, and support during and after treatment.",
+    "Revisión de laboratorios": "Laboratory review",
+    "Interpretación de hemogramas, estudios de coagulación y otros resultados relevantes.": "Interpretation of blood counts, coagulation studies, and other relevant results.",
+    "Estudios especializados": "Specialized testing",
+    "Coordinación de procedimientos como aspirado o biopsia de médula cuando existe indicación.": "Coordination of procedures such as bone marrow aspiration or biopsy when indicated.",
+    "Tratamiento y seguimiento": "Treatment and follow-up",
+    "Definición de una ruta clínica y controles para evaluar la respuesta y la evolución.": "Definition of a clinical care path and follow-up to assess response and progress.",
+    "Servicios relacionados": "Related services",
+    "Atención oncológica disponible en HOPE": "Oncology care available at HOPE",
+    "Atención hematológica disponible en HOPE": "Hematology care available at HOPE",
+    "Explora los servicios que pueden formar parte de una ruta de atención, siempre según evaluación médica.": "Explore services that may be part of a care path, always according to medical evaluation.",
+    "Explora procedimientos y servicios que pueden formar parte de la evaluación, según indicación médica.": "Explore procedures and services that may be part of the evaluation, as medically indicated.",
+    "Primera valoración, segunda opinión y controles especializados.": "Initial evaluation, second opinions, and specialized follow-up.",
+    "Administración de tratamientos en un entorno controlado y acompañado.": "Treatment administration in a controlled and supportive environment.",
+    "Apoyo emocional especializado para pacientes y familiares.": "Specialized emotional support for patients and families.",
+    "Obtención de una muestra para estudiar la producción de células sanguíneas.": "Collection of a sample to evaluate blood cell production.",
+    "Procedimiento diagnóstico realizado bajo indicación y protocolo médico.": "Diagnostic procedure performed according to medical indication and protocol.",
+    "Aspirado de médula ósea": "Bone marrow aspiration",
+    "Biopsia de hueso": "Bone biopsy",
+    "Oncólogos en Panamá": "Oncologists in Panama",
+    "Hematólogos en Panamá": "Hematologists in Panama",
+    "Conoce a los especialistas que acompañan la evaluación, el tratamiento y el seguimiento.": "Meet the specialists who support evaluation, treatment, and follow-up.",
+    "Conoce a los especialistas que acompañan la evaluación, los procedimientos y el seguimiento.": "Meet the specialists who support evaluation, procedures, and follow-up.",
+    "Condiciones oncológicas": "Oncologic conditions",
+    "Condiciones hematológicas": "Hematologic conditions",
+    "Información general para comprender conceptos y preparar una conversación con el especialista.": "General information to understand key concepts and prepare for a conversation with the specialist.",
+    "Ver todas las condiciones": "View all conditions",
+    "Antes de una consulta de oncología": "Before an oncology consultation",
+    "Antes de una consulta de hematología": "Before a hematology consultation",
+    "Si tienes un diagnóstico, estudios o inquietudes, nuestro equipo puede orientarte sobre la documentación necesaria.": "If you have a diagnosis, tests, or concerns, our team can guide you regarding the documentation needed.",
+    "Lleva resultados recientes, informes anteriores y una lista de medicamentos para facilitar la revisión del caso.": "Bring recent results, prior reports, and a medication list to help with the case review.",
+    "Visítanos en Pacífica Salud": "Visit us at Pacífica Salud",
+    "Consultorios Pacífica Salud, Piso 8, Boulevard Pacífica Salud, Vía Punta Darién, Panamá.": "Pacífica Salud Medical Offices, 8th Floor, Boulevard Pacífica Salud, Vía Punta Darién, Panama.",
+    "Conversa con nuestro equipo de oncología": "Talk with our oncology team",
+    "Conversa con nuestro equipo de hematología": "Talk with our hematology team",
+    "Podemos orientarte sobre disponibilidad, estudios y requisitos para la consulta.": "We can guide you regarding availability, tests, and consultation requirements.",
+    "Agendar una consulta": "Schedule a consultation",
+    "← Inicio": "← Home",
+    "Cáncer de mama": "Breast cancer",
+    "Cáncer de pulmón": "Lung cancer",
+    "Cáncer de próstata": "Prostate cancer",
+    "Cáncer colorrectal": "Colorectal cancer",
+    "Información general, posibles señales y evaluación especializada.": "General information, possible signs, and specialized evaluation.",
+    "Conceptos básicos, evaluación y acompañamiento especializado.": "Key concepts, evaluation, and specialized support.",
+    "Información educativa sobre diagnóstico y opciones de atención.": "Educational information about diagnosis and care options.",
+    "Información para conversar con un especialista sobre la evaluación.": "Information to discuss the evaluation with a specialist.",
+    "Anemia": "Anemia",
+    "Leucemia": "Leukemia",
+    "Linfoma": "Lymphoma",
+    "Mieloma múltiple": "Multiple myeloma",
+    "Tipos, posibles causas, señales y evaluación especializada.": "Types, possible causes, signs, and specialized evaluation.",
+    "Información general sobre este grupo de enfermedades de las células sanguíneas.": "General information about this group of blood cell diseases.",
+    "Conceptos básicos y evaluación de enfermedades del sistema linfático.": "Key concepts and evaluation of diseases of the lymphatic system.",
+    "Información educativa sobre células plasmáticas, médula ósea y seguimiento.": "Educational information about plasma cells, bone marrow, and follow-up.",
+    "¿Qué hace un oncólogo?": "What does an oncologist do?",
+    "El oncólogo evalúa, planifica y da seguimiento al tratamiento médico de diferentes tipos de cáncer, coordinando estudios y otras especialidades cuando es necesario.": "An oncologist evaluates, plans, and follows the medical treatment of different types of cancer, coordinating tests and other specialties when needed.",
+    "¿Puedo solicitar una segunda opinión oncológica?": "Can I request a second oncology opinion?",
+    "Sí. Una segunda opinión permite revisar diagnósticos, estudios y alternativas de tratamiento antes de tomar decisiones.": "Yes. A second opinion provides an opportunity to review diagnoses, tests, and treatment alternatives before making decisions.",
+    "¿HOPE trabaja con aseguradoras?": "Does HOPE work with insurance providers?",
+    "HOPE coordina atención con diferentes aseguradoras. La cobertura depende de la póliza y debe confirmarse antes de la cita.": "HOPE coordinates care with different insurance providers. Coverage depends on the policy and must be confirmed before the appointment.",
+    "¿Qué hace un hematólogo?": "What does a hematologist do?",
+    "El hematólogo evalúa y trata enfermedades de la sangre, la médula ósea, la coagulación y otros componentes del sistema hematológico.": "A hematologist evaluates and treats diseases of the blood, bone marrow, coagulation, and other components of the hematologic system.",
+    "¿Cuándo puede ser necesaria una consulta de hematología?": "When might a hematology consultation be needed?",
+    "Una consulta puede ser indicada ante alteraciones persistentes en el hemograma, anemia, problemas de coagulación, ganglios aumentados u otros hallazgos que requieran evaluación especializada.": "A consultation may be indicated for persistent blood count abnormalities, anemia, coagulation problems, enlarged lymph nodes, or other findings that require specialized evaluation.",
+    "¿Debo llevar mis laboratorios anteriores?": "Should I bring my previous laboratory results?",
+    "Sí. Llevar hemogramas, estudios, informes, imágenes y una lista de medicamentos ayuda al especialista a revisar la evolución del caso.": "Yes. Bringing blood counts, tests, reports, imaging, and a medication list helps the specialist review how the case has evolved.",
 
     /* Condiciones */
     "Información clara para dar el siguiente paso.": "Clear information to help you take the next step.",
@@ -1129,6 +1249,12 @@ document.addEventListener("hope:languagechange", (event) => {
 
   const titles = {
     "HOPE Panamá | Hematología y Oncología Especializada": "HOPE Panama | Specialized Hematology and Oncology",
+    "Centro de Oncología y Hematología en Panamá | HOPE": "Oncology and Hematology Center in Panama | HOPE",
+    "Oncología en Panamá | Atención Especializada | HOPE": "Oncology in Panama | Specialized Care | HOPE",
+    "Hematología en Panamá | Atención Especializada | HOPE": "Hematology in Panama | Specialized Care | HOPE",
+    "Oncólogos y Hematólogos en Panamá | Equipo HOPE": "Oncologists and Hematologists in Panama | HOPE Team",
+    "Servicios de Oncología y Hematología en Panamá | HOPE": "Oncology and Hematology Services in Panama | HOPE",
+    "Quimioterapia Ambulatoria en Panamá | HOPE": "Outpatient Chemotherapy in Panama | HOPE",
     "Equipo médico | HOPE Panamá": "Medical Team | HOPE Panama",
     "Servicios médicos | HOPE Panamá": "Medical Services | HOPE Panama",
     "Quiénes somos | HOPE Panamá": "About Us | HOPE Panama",

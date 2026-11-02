@@ -1,0 +1,50 @@
+HOPE PANAMÁ — CHECKLIST DE SEO LOCAL
+====================================
+
+IMPLEMENTADO EN LA V7
+- Página principal orientada a "oncología y hematología en Panamá".
+- Página dedicada: /oncologia-panama.html.
+- Página dedicada: /hematologia-panama.html.
+- Títulos y descripciones locales para equipo, servicios y quimioterapia.
+- Enlaces internos desde inicio, menú y pie.
+- Datos estructurados MedicalClinic, MedicalWebPage, FAQ y BreadcrumbList.
+- Dirección, coordenadas, Google Maps y Waze.
+- sitemap.xml actualizado y robots.txt disponible.
+- URLs canónicas, Open Graph y vista para redes sociales.
+- Contenido educativo con aviso médico y llamadas a la acción contextuales.
+- Diseño móvil, accesibilidad, imágenes WebP y carga diferida.
+
+ACCIONES EXTERNAS NECESARIAS
+1. Verificar o actualizar Google Business Profile de HOPE.
+2. Usar exactamente el mismo nombre, dirección y teléfonos en web, Google,
+   Pacífica Salud, aseguradoras, directorios y redes sociales.
+3. Verificar el dominio en Google Search Console y enviar sitemap.xml.
+4. Solicitar indexación de inicio, oncologia-panama.html,
+   hematologia-panama.html, equipo.html y servicios.html.
+5. Completar categorías, horario, servicios, fotografías y enlace web en el
+   perfil de Google.
+6. Obtener reseñas auténticas de pacientes sin incentivos y responderlas sin
+   revelar información clínica o confirmar una relación médico-paciente.
+7. Conseguir enlaces legítimos desde Pacífica Salud, aseguradoras, sociedades
+   médicas y directorios profesionales relevantes.
+8. Publicar contenido revisado por profesionales con nombre, credenciales y
+   fecha de revisión verificables.
+9. Conectar Google Analytics 4 solo si el cliente desea medición y aprueba el
+   identificador; GA4 mide resultados, pero no mejora el ranking por sí solo.
+10. Revisar mensualmente consultas, páginas, conversiones y errores de Search
+    Console para ajustar el contenido según datos reales.
+
+DATOS QUE EL CLIENTE DEBE CONFIRMAR
+- Razón social y nombre público exactos.
+- Dirección, coordenadas, horario y teléfonos.
+- Especialidades, credenciales, idoneidad y biografías del equipo.
+- Servicios vigentes y preparación para cada procedimiento.
+- Aseguradoras y condiciones de cobertura.
+- Responsable de revisión de contenido clínico.
+- Accesos a Google Business Profile, Search Console y Analytics.
+
+EXPECTATIVA CORRECTA
+La V7 deja una base técnica y editorial sólida. Google determina la posición
+según relevancia, distancia, prominencia, competencia y otras señales. No se
+puede prometer el primer lugar; el SEO local requiere publicación, validación,
+reputación y mantenimiento continuo.

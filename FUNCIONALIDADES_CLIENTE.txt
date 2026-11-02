@@ -1,0 +1,68 @@
+HOPE PANAMÁ — FUNCIONALIDADES Y VALOR COMERCIAL
+===============================================
+
+1. EXPERIENCIA DE MARCA Y DISEÑO
+- Diseño premium personalizado para una institución médica.
+- Identidad visual consistente, animaciones sutiles y fotografía optimizada.
+- Diseño responsive para teléfono, tableta y computadora.
+- Navegación principal, mega menú, pie completo y llamadas a la acción.
+- Tipografía profesional y formato uniforme de teléfonos.
+
+2. CAPTACIÓN Y CONVERSIÓN
+- Botones de WhatsApp con mensajes contextuales por médico, servicio o tema.
+- Botón flotante de contacto y llamadas telefónicas con un toque.
+- Formulario que prepara el mensaje sin almacenar datos médicos en la web.
+- Llamadas a la acción distribuidas en las páginas clave.
+- Seguimiento de clics preparado para citas, teléfono, mapas y aseguradoras.
+
+3. CONTENIDO MÉDICO E INSTITUCIONAL
+- Página principal completa.
+- Quiénes somos, equipo médico, contacto y privacidad.
+- Directorio de especialistas y perfiles individuales.
+- Catálogo de servicios y páginas individuales por servicio.
+- Directorio educativo de condiciones y páginas individuales.
+- Páginas dedicadas a oncología y hematología en Panamá.
+- Preguntas frecuentes, preparación, proceso de atención y avisos médicos.
+
+4. POSICIONAMIENTO EN BUSCADORES
+- Arquitectura SEO con URLs limpias e indexables.
+- Títulos, descripciones, encabezados y enlaces internos optimizados.
+- SEO local para oncología, hematología, especialistas y quimioterapia.
+- sitemap.xml, robots.txt y etiquetas canónicas.
+- Datos estructurados de clínica médica, ubicación, servicios, preguntas y
+  navegación jerárquica.
+- Metadatos Open Graph para compartir correctamente en redes y mensajería.
+- Lista operativa para Google Business Profile y Search Console.
+
+5. UBICACIÓN E INTEGRACIONES
+- Bloque de ubicación visible en la página principal antes del cierre.
+- Google Maps y Waze integrados con selector de proveedor.
+- Botones directos para abrir rutas en las aplicaciones.
+- Logotipos de aseguradoras enlazados a sus sitios oficiales.
+- Enlace a Instagram institucional y redes de los profesionales.
+
+6. IDIOMA, ACCESIBILIDAD Y PRIVACIDAD
+- Interfaz español/inglés con preferencia recordada en el navegador.
+- Navegación por teclado, foco visible, textos alternativos y etiquetas ARIA.
+- Enlace para saltar al contenido y estructura semántica de encabezados.
+- Aviso de privacidad y consentimiento antes de activar analítica opcional.
+- El formulario no guarda datos; prepara el envío hacia WhatsApp.
+
+7. RENDIMIENTO Y CALIDAD TÉCNICA
+- Imágenes WebP, carga diferida y recursos locales.
+- Sitio estático rápido, seguro y compatible con GitHub Pages.
+- Diseño sin dependencias pesadas ni base de datos.
+- Íconos, favicon, imagen social y manifiesto del sitio.
+- Código modular con información centralizada para facilitar cambios.
+
+8. MEDICIÓN Y MANTENIMIENTO
+- Integración preparada para Google Analytics 4 mediante un ID configurable.
+- Eventos preparados para medir contacto y acciones comerciales.
+- Configuración central de teléfonos, WhatsApp, mapas, enlaces y contenido.
+- Guía de instalación, checklist SEO y documentación de datos a validar.
+
+ENTREGABLE
+Un sitio web institucional y comercial con 31 URLs indexables, listo para
+publicación, optimizado para captar pacientes y preparado para una estrategia
+de SEO local. La publicación, accesos a cuentas de Google, validación clínica y
+mantenimiento de posicionamiento se coordinan con el cliente.

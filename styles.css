@@ -1,4 +1,4 @@
-/* HOPE Panamá V6 — dirección visual clínica editorial */
+/* HOPE Panamá V7 — dirección visual clínica editorial */
 :root {
   --navy: #061d27;
   --navy-2: #0b2b35;
@@ -113,8 +113,10 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
 .ambient-one { width: 520px; height: 520px; left: -290px; top: 30px; border: 1px solid rgba(208,176,119,.35); box-shadow: 0 0 0 70px rgba(208,176,119,.04),0 0 0 140px rgba(208,176,119,.025); }
 .ambient-two { width: 430px; height: 430px; right: -180px; top: 20px; background: radial-gradient(circle,rgba(118,217,208,.23),transparent 66%); }
 .hero-intro { position: relative; z-index: 1; margin-bottom: 52px; display: grid; grid-template-columns: 1.35fr .65fr; gap: 85px; align-items: end; }
-.hero-title h1 { margin: 0; font-size: clamp(3.8rem,6.8vw,7rem); line-height: .9; }
+.hero-title h1 { max-width: 900px; margin: 0; font-size: clamp(3.35rem,5.8vw,6.2rem); line-height: .94; }
 .hero-title h1 em { color: var(--teal); font-weight: 400; }
+.hero-motto { margin: 24px 0 0; color: var(--teal); font-family: var(--display); font-size: clamp(1.35rem,2.1vw,2rem); line-height: 1.15; }
+.hero-motto em { font-weight: 400; }
 .hero-summary { padding: 0 0 5px 24px; border-left: 1px solid var(--gold); }
 .hero-summary > p { color: var(--muted); font-size: 1.05rem; line-height: 1.8; }
 .hero-buttons { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
@@ -150,6 +152,44 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
 .manifesto-points > div { padding: 20px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 145px 1fr; gap: 22px; }
 .manifesto-points b { font-family: var(--display); font-size: 1.15rem; }
 .manifesto-points span { color: var(--muted); font-size: .9rem; }
+
+/* SEO specialties */
+.seo-specialties { background: linear-gradient(180deg,#f7f9f7,var(--paper)); }
+.seo-specialty-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.seo-specialty-card { position: relative; min-height: 390px; padding: clamp(32px,4vw,52px); border: 1px solid var(--line); border-radius: 34px; display: flex; flex-direction: column; overflow: hidden; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+.seo-specialty-card::after { content: ""; position: absolute; right: -110px; bottom: -115px; width: 280px; height: 280px; border: 1px solid currentColor; border-radius: 50%; opacity: .12; box-shadow: 0 0 0 48px currentColor; }
+.seo-specialty-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+.seo-specialty-card.oncology { color: var(--white); background: var(--navy); }
+.seo-specialty-card.hematology { color: var(--ink); background: var(--white); }
+.seo-specialty-card > span { color: var(--gold); font-family: var(--display); font-size: 1.45rem; }
+.seo-specialty-card small { margin-top: auto; padding-top: 72px; color: var(--teal); font-size: .69rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.seo-specialty-card.oncology small { color: var(--aqua); }
+.seo-specialty-card h3 { max-width: 520px; margin: 12px 0 16px; font-size: clamp(2.3rem,4vw,4.1rem); line-height: .98; }
+.seo-specialty-card p { max-width: 580px; margin: 0; color: var(--muted); line-height: 1.8; }
+.seo-specialty-card.oncology p { color: #b8c8cb; }
+.seo-specialty-card b { position: relative; z-index: 1; margin-top: 30px; color: #a9854e; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; }
+.seo-specialty-card.oncology b { color: var(--gold-2); }
+
+/* Specialty SEO landing pages */
+.specialty-landing-hero { position: relative; overflow: hidden; color: var(--white); background: linear-gradient(120deg,var(--navy),#0c3740); }
+.specialty-landing-hero::after { content: ""; position: absolute; right: -220px; top: -300px; width: 720px; height: 720px; border: 1px solid rgba(118,217,208,.15); border-radius: 50%; box-shadow: 0 0 0 90px rgba(118,217,208,.025),0 0 0 180px rgba(118,217,208,.014); }
+.specialty-hero-grid { position: relative; z-index: 1; min-height: 670px; padding-block: 90px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 80px; align-items: center; }
+.specialty-hero-grid h1 { max-width: 900px; margin-bottom: 26px; font-size: clamp(4rem,7vw,7.2rem); line-height: .9; }
+.specialty-hero-grid > div:first-child > p:not(.kicker) { max-width: 720px; color: #b8c8cb; font-size: 1.05rem; line-height: 1.85; }
+.specialty-hero-grid .button { margin-top: 24px; }
+.specialty-mark { width: min(100%,350px); aspect-ratio: 1; margin-left: auto; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; display: grid; place-content: center; justify-items: center; background: radial-gradient(circle,rgba(118,217,208,.13),transparent 70%); text-align: center; }
+.specialty-mark strong { color: var(--gold-2); font-family: var(--display); font-size: clamp(3rem,6vw,5.5rem); font-weight: 400; line-height: .9; }
+.specialty-mark span { margin-top: 18px; color: #aac0c4; font-size: .7rem; font-weight: 800; letter-spacing: .17em; text-transform: uppercase; }
+.specialty-overview-grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: 90px; }
+.specialty-overview-grid > div:last-child { color: var(--muted); font-size: 1.04rem; line-height: 1.9; }
+.specialty-feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.specialty-feature-grid article { min-height: 280px; padding: 30px; border: 1px solid rgba(255,255,255,.12); border-radius: 24px; background: rgba(255,255,255,.045); }
+.specialty-feature-grid article > span { color: var(--gold); font-family: var(--display); font-size: 1.25rem; }
+.specialty-feature-grid h3 { margin: 75px 0 12px; font-size: 1.7rem; }
+.specialty-feature-grid p { margin: 0; color: #aec0c4; font-size: .9rem; line-height: 1.75; }
+.medical-review-note { margin-top: 36px; padding: 20px 24px; border-left: 3px solid var(--gold); color: var(--muted); background: var(--paper); font-size: .86rem; line-height: 1.75; }
+.specialty-faq-grid { display: grid; grid-template-columns: .78fr 1.22fr; gap: 90px; }
+.specialty-faq-grid .faq-stack { margin-top: 0; }
 
 /* Services */
 .dark-section { position: relative; overflow: hidden; color: var(--white); background: var(--navy); }
@@ -497,6 +537,7 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
   .hero-intro, .inner-hero-grid, .split-heading { grid-template-columns: 1fr; gap: 35px; }
   .hero-summary { max-width: 720px; }
   .service-grid { grid-template-columns: repeat(2,1fr); }
+  .specialty-feature-grid { grid-template-columns: repeat(2,1fr); }
   .condition-grid, .full-condition-grid { grid-template-columns: repeat(2,1fr); }
   .doctor-grid { grid-template-columns: repeat(2,1fr); gap: 40px 18px; }
   .full-team { grid-template-columns: repeat(2,1fr); }
@@ -518,7 +559,8 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
   .panorama-link { right: 12px; bottom: 10px; width: 136px; height: 60px; }
   .trust-strip { grid-template-columns: repeat(2,1fr); gap: 0; }
   .trust-strip > div { min-height: 75px; border-bottom: 1px solid var(--line); }
-  .manifesto-grid, .story-grid, .facility-grid, .faq-layout, .process-layout, .profile-content-grid, .credentials-grid, .overview-grid, .prep-grid, .directory-intro, .source-commitment-grid, .condition-hero-grid, .privacy-layout { grid-template-columns: 1fr; gap: 55px; }
+  .manifesto-grid, .story-grid, .facility-grid, .faq-layout, .process-layout, .profile-content-grid, .credentials-grid, .overview-grid, .prep-grid, .directory-intro, .source-commitment-grid, .condition-hero-grid, .privacy-layout, .specialty-hero-grid, .specialty-overview-grid, .specialty-faq-grid { grid-template-columns: 1fr; gap: 55px; }
+  .specialty-mark { width: 270px; margin: 0 auto; }
   .manifesto-image { margin-inline: auto; }
   .journey-line { grid-template-columns: repeat(2,1fr); gap: 45px 18px; }
   .journey-line::before { display: none; }
@@ -567,7 +609,10 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 4.4vw, 4.7rem); line-height: 
   .manifesto-image { width: 88%; }
   .orbit-label { right: -36px; width: 105px; height: 105px; }
   .manifesto-points > div { grid-template-columns: 1fr; gap: 4px; }
-  .service-grid, .doctor-grid, .full-team, .insurance-grid, .principle-grid, .condition-grid, .full-condition-grid { grid-template-columns: 1fr; }
+  .service-grid, .doctor-grid, .full-team, .insurance-grid, .principle-grid, .condition-grid, .full-condition-grid, .seo-specialty-grid, .specialty-feature-grid { grid-template-columns: 1fr; }
+  .seo-specialty-card { min-height: 345px; padding: 30px 24px; }
+  .specialty-hero-grid { min-height: 0; padding-block: 75px; }
+  .specialty-hero-grid h1 { font-size: clamp(3.2rem,14vw,4.8rem); }
   .service-card { min-height: 325px; }
   .journey-line { grid-template-columns: 1fr; }
   .journey-line article { max-width: 380px; margin-inline: auto; }

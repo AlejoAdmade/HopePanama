@@ -1,4 +1,4 @@
-/* HOPE Panamá V6 — contenido editable del sitio.
+/* HOPE Panamá V7 — contenido editable del sitio.
    Los perfiles y credenciales médicas son demostrativos y deben sustituirse
    por información verificada antes de publicar. */
 

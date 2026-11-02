@@ -1,5 +1,5 @@
-HOPE PANAMÁ — MEJORA INTEGRAL 2026
-==================================
+HOPE PANAMÁ — VERSIÓN 7 / SEO LOCAL 2026
+=========================================
 
 CÓMO ABRIRLO
 1. Extrae el archivo ZIP completo.
@@ -8,6 +8,8 @@ CÓMO ABRIRLO
 
 ARCHIVOS PRINCIPALES
 - index.html: página principal.
+- oncologia-panama.html: página SEO local de oncología.
+- hematologia-panama.html: página SEO local de hematología.
 - nosotros.html: información del centro.
 - equipo.html: directorio de especialistas.
 - doctor-*.html: perfiles individuales con URL y SEO propio.
@@ -23,6 +25,8 @@ ARCHIVOS PRINCIPALES
 - script.js: navegación, idioma, citas, analítica y accesibilidad.
 - data.js: textos editables, enlaces, condiciones, aseguradoras y configuración.
 - sitemap.xml y robots.txt: archivos para indexación en buscadores.
+- SEO_LOCAL_CHECKLIST.txt: pasos de publicación y posicionamiento local.
+- FUNCIONALIDADES_CLIENTE.txt: inventario comercial de la solución.
 - images: imágenes utilizadas por todo el sitio.
 
 IMPORTANTE
@@ -51,6 +55,18 @@ Después de subir todos los archivos a GitHub Pages, registra la dirección
 https://alejoadmade.github.io/HopePanama/ en Google Search Console y envía:
 https://alejoadmade.github.io/HopePanama/sitemap.xml
 
+La V7 incluye páginas específicas para búsquedas como "oncología en Panamá",
+"hematología en Panamá", "oncólogos en Panamá" y "quimioterapia ambulatoria
+en Panamá". El posicionamiento depende también del perfil de empresa en
+Google, la autoridad del dominio, reseñas reales, enlaces y mantenimiento.
+Ninguna implementación puede garantizar una posición específica en Google.
+
+Antes de publicar, valida con HOPE:
+- nombres, especialidades, credenciales e idoneidad de cada profesional;
+- horarios, teléfonos, dirección y coberturas vigentes;
+- contenido clínico y responsable médico de la revisión;
+- enlaces oficiales de aseguradoras y redes sociales.
+
 ASEGURADORAS
 Cada logo abre la página oficial indicada en data.js. Puedes cambiar el nombre,
 imagen o enlace dentro del arreglo insurers.
@@ -58,3 +74,11 @@ imagen o enlace dentro del arreglo insurers.
 RENDIMIENTO
 Las páginas utilizan imágenes WebP optimizadas. Conserva los archivos .webp
 al subir la actualización; los PNG/JPG originales se mantienen como respaldo.
+
+VERSIÓN 7
+- SEO local reforzado en títulos, descripciones, encabezados y enlaces internos.
+- Datos estructurados de clínica médica, ubicación, servicios, FAQ y migas.
+- Nuevas páginas de oncología y hematología con intención de búsqueda local.
+- Sitemap actualizado con 31 direcciones indexables.
+- Experiencia bilingüe ampliada a las nuevas páginas.
+- Menú y pie actualizados para distribuir autoridad hacia las especialidades.
